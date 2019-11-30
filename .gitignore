@@ -1,0 +1,29 @@
+# Godot-specific ignores
+.import/
+export.cfg
+export_presets.cfg
+
+
+# Visual Studio 2017 and Visual Studio Code workspace folder
+/.vs
+/.vscode
+
+# Visual Studio Code workspace file
+*.code-workspace
+
+# Xcode
+xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+*.xcodeproj/*
+
+# Misc
+.DS_Store
+__MACOSX
+logs/
+
+# Windows image file caches
+[Tt]humbs.db
+[Tt]humbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
