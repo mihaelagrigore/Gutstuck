@@ -1,0 +1,4 @@
+[gd_scene format=2]
+
+[node name="G_Manager_Bacteria" type="Node2D"]
+

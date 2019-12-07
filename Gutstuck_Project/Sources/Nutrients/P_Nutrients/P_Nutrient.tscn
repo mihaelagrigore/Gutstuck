@@ -1,0 +1,4 @@
+[gd_scene format=2]
+
+[node name="P_Nutrient" type="KinematicBody2D"]
+

@@ -1,0 +1,4 @@
+[gd_scene format=2]
+
+[node name="P_Manager_Nutrients" type="Node2D"]
+

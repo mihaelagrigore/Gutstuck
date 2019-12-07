@@ -1,0 +1,4 @@
+[gd_scene format=2]
+
+[node name="Wall_Manager" type="Node2D"]
+
