@@ -1,11 +1,15 @@
-extends "res://Sources/Nutrients/Nutrient.gd"
+extends Nutrient
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
 
+func _physics_process(delta: float) -> void:
+	#what to do here ?
+	pass
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(delta: float) -> void:
 	if (state == STATE_DEPLETED):
 		#to prevent anyone from colliding into me 
 		#until I completely die

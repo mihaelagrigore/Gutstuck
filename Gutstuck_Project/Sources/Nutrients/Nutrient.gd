@@ -1,4 +1,5 @@
 extends KinematicBody2D
+class_name Nutrient
 
 #what am I doing at the moment ?
 #when I spawn, I am just chillin'
