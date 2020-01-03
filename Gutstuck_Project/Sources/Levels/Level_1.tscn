@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Assets/Textures/Asset_background.png" type="Texture" id=1]
 [ext_resource path="res://Assets/Textures/Asset_epithelial cell.png" type="Texture" id=2]
@@ -6,6 +6,24 @@
 [ext_resource path="res://Assets/Textures/Asset_fiber.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Audios/Musics/loop_bubbles_02.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Sources/System/Input_Manager.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Sources/Nutrients/F_Nutrients/F_Nutrient_A2D.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Sources/Bacteria/F_Bacteria/F_Bacteria.tscn" type="PackedScene" id=8]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node2D
+
+# Declare member variables here. Examples:
+# var a: int = 2
+# var b: String = \"text\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta: float) -> void:
+#	pass
+"
 
 [sub_resource type="Animation" id=1]
 resource_name = "Wobling"
@@ -25,21 +43,22 @@ tracks/0/keys = {
 }
 
 [node name="Level_1" type="Node2D"]
+script = SubResource( 2 )
 
 [node name="Asset_background" type="Sprite" parent="."]
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 1 )
 
 [node name="Asset_epithelial cell" type="Sprite" parent="."]
-scale = Vector2( 0.7, 0.7 )
+scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 2 )
 
 [node name="asset_mucus" type="Sprite" parent="."]
-scale = Vector2( 0.7, 0.7 )
+scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 3 )
 
 [node name="Asset_fiber" type="Sprite" parent="."]
-position = Vector2( 166.515, 36.8585 )
+position = Vector2( -46.4539, 248.388 )
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 4 )
 
@@ -59,3 +78,8 @@ anims/Wobling = SubResource( 1 )
 cameraPath = NodePath("../Camera2D")
 box_color = Color( 1, 1, 1, 0.392157 )
 
+[node name="F_Nutrient_A2D" parent="." instance=ExtResource( 7 )]
+position = Vector2( -83.9772, -30.3251 )
+
+[node name="F_Bacteria" parent="." instance=ExtResource( 8 )]
+position = Vector2( 49.7643, -42.7661 )

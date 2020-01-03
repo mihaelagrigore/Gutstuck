@@ -1,12 +1,23 @@
 extends KinematicBody2D
+class_name Bacteria
+
+const INITIAL_ENERGY=50
+const ENERGY_LOS_PER_SECOND_CHILL = 1
+const ENERGY_LOS_PER_SECOND_MOVE = 1
+const MAX_ENERGY=100
 
 var target = Vector2()
-var velocity = Vector2()
 export (int) var speed = 200
+
 var generation_number = 0
-const INITIAL_ENERGY=50
-var energy = INITIAL_ENERGY
-var energy_after_foraging
+var energy_level = INITIAL_ENERGY
+
+#energy_after_foraging var must be dropped
+#it must be declared as a local var inside the functions
+#where it is being used
+#also, mind that you use the var before initializing it (before
+#attributing a value to it) 
+var energy_after_foraging  
 
 var time
 
@@ -17,7 +28,7 @@ const STATE_EATING = 3
 const STATE_REPLICATING = 4
 
 var state = STATE_CHILL #state can contain {STATE_CHILL, STATE_SELECTED, STATE_MOVING, STATE_EATING, STATE_REPLICATING}
-
+#var colliding_nutrients
 
 #food_sources
 # Called when the node enters the scene tree for the first time.
@@ -35,6 +46,7 @@ func _input(event):
 			target = get_global_mouse_position()
 
 func _physics_process(delta):
+	var velocity = Vector2()
 	if state== STATE_SELECTED:
 		velocity = (target - position).normalized() * speed
 		#rotation = velocity.angle()
@@ -46,42 +58,50 @@ func _physics_process(delta):
 		if collision:
 			#if body extends Bacteria #still need to find the right words
     		velocity = velocity.slide(collision.normal)
-	
-	pass
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	# Evolution of energy quantity
 	if state==STATE_CHILL or state==STATE_SELECTED:
-		energy=_energy_chill(time-((100-energy_after_foraging)/100)) #f(t), t being the time from the origin, where energy=initial_energy
+		#energy_level=energy_chill(time-((100-energy_after_foraging)/100)) #f(t), t being the time from the origin, where energy=initial_energy
+		energy_level -= ENERGY_LOS_PER_SECOND_CHILL * delta
 	elif state==STATE_MOVING:
-		energy=_energy_moving(time-((100-energy_after_foraging)/100))
-	
+		#energy_level=energy_moving(time-((100-energy_after_foraging)/100))
+		energy_level -= ENERGY_LOS_PER_SECOND_MOVE * delta
 	elif state==STATE_EATING:
-		
-		#energy=bite_me ?
-		energy_after_foraging=energy
-	pass
+		#TODO: update the energy bar displayed on top of the 
+		#bacteria Sprite
+		pass
 
-func _energy_chill(t):
-	energy=100-t
-	pass
+func energy_chill(t):
+	energy_level=100-t
 
-func _energy_moving(t):
-	energy=90-t
-	pass
+func energy_moving(t):
+	energy_level=90-t
 
-var fed_up
-var energy_from_nutrient
-
-func _feed_me(energy_from_nutrient):
-	if energy==100:
-		fed_up=true
+func feed_me(energy_from_nutrient: int) -> int :
+	var morsel
+	energy_level + energy_from_nutrient 
+	if (energy_level+energy_from_nutrient) < MAX_ENERGY:
+		morsel = energy_from_nutrient
+		energy_level += energy_from_nutrient
 	else:
-		energy+=energy_from_nutrient
-	pass
+		morsel = MAX_ENERGY - energy_level
+		energy_level = MAX_ENERGY
+		#done eating, I deactivate my collisionshape
+		#this way all nutrients I was feeding on
+		#get a body_exit signal triggered and are informed I disappeared
+		#don't forget to activate back
+		deactivate()
+	return morsel
 
-func _stop_feeding():
+func stop_feeding():
 	state=STATE_CHILL
-	pass
+	
+func activate():
+	get_node("CollisionShape2D").disabled = false
+	visible = true
+	
+func deactivate():
+	get_node("CollisionShape2D").disabled = true
+	visible = false

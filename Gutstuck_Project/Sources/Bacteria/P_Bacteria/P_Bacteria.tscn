@@ -1,6 +1,8 @@
 [gd_scene format=2]
 
-[node name="P_Bacteria" type="KinematicBody2D"]
+[node name="P_Bacteria" type="KinematicBody2D" groups=[
+"Bacteria",
+]]
 
 [node name="Sprite" type="Sprite" parent="."]
 
