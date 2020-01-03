@@ -40,7 +40,7 @@ func _physics_process(delta):
 		#rotation = velocity.angle()
 	#if (target - position).length() > 5: that was in the tuto, thought to replace it with the other if
 		move_and_slide(velocity)
-		# using move_and_collide
+		# using move_and_collide is gonna be
 		var collision = move_and_collide(velocity * delta)
 		#A collision will stop the moving except if the collider is another bacteria
 		if collision:
@@ -72,12 +72,16 @@ func _energy_moving(t):
 	energy=90-t
 	pass
 
-bool fed_up
-func _feed_me(energy):
+var fed_up
+var energy_from_nutrient
+
+func _feed_me(energy_from_nutrient):
 	if energy==100:
 		fed_up=true
 	else:
-		energy+=get_energy_from_nutrient
+		energy+=energy_from_nutrient
+	pass
 
 func _stop_feeding():
 	state=STATE_CHILL
+	pass
