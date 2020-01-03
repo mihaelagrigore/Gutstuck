@@ -69,6 +69,7 @@ func _process(delta):
 		#energy_level=energy_moving(time-((100-energy_after_foraging)/100))
 		energy_level -= ENERGY_LOS_PER_SECOND_MOVE * delta
 	elif state==STATE_EATING:
+<<<<<<< HEAD
 		#TODO: update the energy bar displayed on top of the 
 		#bacteria Sprite
 		pass
