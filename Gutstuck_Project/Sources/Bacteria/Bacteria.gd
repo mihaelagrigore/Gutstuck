@@ -73,9 +73,9 @@ func _energy_moving(t):
 	pass
 
 var fed_up
-var energy_from_nutrient
 
-func _feed_me(energy_from_nutrient):
+
+func _feed_me(energy_from_nutrient :int):
 	if energy==100:
 		fed_up=true
 	else:
