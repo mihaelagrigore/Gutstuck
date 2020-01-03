@@ -25,7 +25,8 @@ const STATE_CHILL = 0
 const STATE_SELECTED = 1
 const STATE_MOVING = 2
 const STATE_EATING = 3
-const STATE_REPLICATING = 4
+const STATE_FULL = 4
+const STATE_REPLICATING = 5
 
 var state = STATE_CHILL #state can contain {STATE_CHILL, STATE_SELECTED, STATE_MOVING, STATE_EATING, STATE_REPLICATING}
 #var colliding_nutrients
@@ -69,16 +70,21 @@ func _process(delta):
 		#energy_level=energy_moving(time-((100-energy_after_foraging)/100))
 		energy_level -= ENERGY_LOS_PER_SECOND_MOVE * delta
 	elif state==STATE_EATING:
-<<<<<<< HEAD
-		#TODO: update the energy bar displayed on top of the 
-		#bacteria Sprite
-		pass
+		#TODO: update the energy bar displayed above the bacteria Sprite
+		pass #remove pass once code is added above this line
+	elif state==STATE_FULL:
+		#TODO: implement replication
+		pass #remove pass once code is added above this line
 
-func energy_chill(t):
-	energy_level=100-t
+#no longer using these functions. 
+#implemented the energy loss directly in _process
+#func energy_chill(t):
+#	energy_level=100-t
 
-func energy_moving(t):
-	energy_level=90-t
+#no longer using these functions. 
+#implemented the energy loss directly in _process
+#func energy_moving(t):
+#	energy_level=90-t
 
 func feed_me(energy_from_nutrient: int) -> int :
 	var morsel
@@ -89,6 +95,7 @@ func feed_me(energy_from_nutrient: int) -> int :
 	else:
 		morsel = MAX_ENERGY - energy_level
 		energy_level = MAX_ENERGY
+		state = STATE_FULL
 		#done eating, I deactivate my collisionshape
 		#this way all nutrients I was feeding on
 		#get a body_exit signal triggered and are informed I disappeared
