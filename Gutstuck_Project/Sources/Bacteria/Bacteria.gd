@@ -64,7 +64,8 @@ var bar = load("res://Sources/Bacteria/Energy_level_bar.gd").new() #I don't know
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if energy_level==0:
-		queue_free() # Removes the node from the scene and frees it when it becomes safe to do so.
+		#queue_free() # Removes the node from the scene and frees it when it becomes safe to do so.
+		pass
 	# Evolution of energy quantity
 	if state==STATE_CHILL or state==STATE_SELECTED:
 		#energy_level=energy_chill(time-((100-energy_after_foraging)/100)) #f(t), t being the time from the origin, where energy=initial_energy
