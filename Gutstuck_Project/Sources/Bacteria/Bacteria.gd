@@ -17,9 +17,9 @@ var energy_level = INITIAL_ENERGY
 #where it is being used
 #also, mind that you use the var before initializing it (before
 #attributing a value to it) 
-var energy_after_foraging  
+#var energy_after_foraging  
 
-var time
+#var time
 
 const STATE_CHILL = 0
 const STATE_SELECTED = 1
@@ -38,7 +38,6 @@ func _ready():
 		generation_number+=1
 	pass # Replace with function body.
 
-# get.time_from general game timer # how do I do that
 
 func _input(event):
 	if state==STATE_SELECTED:
@@ -52,16 +51,20 @@ func _physics_process(delta):
 		velocity = (target - position).normalized() * speed
 		#rotation = velocity.angle()
 	#if (target - position).length() > 5: that was in the tuto, thought to replace it with the other if
-		move_and_slide(velocity)
-		# using move_and_collide is gonna be
+#		move_and_slide(velocity)
+
 		var collision = move_and_collide(velocity * delta)
 		#A collision will stop the moving except if the collider is another bacteria
 		if collision:
 			#if body extends Bacteria #still need to find the right words
     		velocity = velocity.slide(collision.normal)
 
+var bar = load("res://Sources/Bacteria/Energy_level_bar.gd").new() #I don't know if it's the right
+#way to code it
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if energy_level==0:
+		queue_free() # Removes the node from the scene and frees it when it becomes safe to do so.
 	# Evolution of energy quantity
 	if state==STATE_CHILL or state==STATE_SELECTED:
 		#energy_level=energy_chill(time-((100-energy_after_foraging)/100)) #f(t), t being the time from the origin, where energy=initial_energy
@@ -70,8 +73,8 @@ func _process(delta):
 		#energy_level=energy_moving(time-((100-energy_after_foraging)/100))
 		energy_level -= ENERGY_LOS_PER_SECOND_MOVE * delta
 	elif state==STATE_EATING:
+		bar.update_energy_bar(energy_level)
 		#TODO: update the energy bar displayed above the bacteria Sprite
-		pass #remove pass once code is added above this line
 	elif state==STATE_FULL:
 		#TODO: implement replication
 		pass #remove pass once code is added above this line
@@ -85,6 +88,7 @@ func _process(delta):
 #implemented the energy loss directly in _process
 #func energy_moving(t):
 #	energy_level=90-t
+
 
 func feed_me(energy_from_nutrient: int) -> int :
 	var morsel
