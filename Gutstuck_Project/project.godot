@@ -10,17 +10,24 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "KinematicBody2D",
+"class": "Bacteria",
+"language": "GDScript",
+"path": "res://Sources/Bacteria/Bacteria.gd"
+}, {
+"base": "Area2D",
 "class": "Nutrient",
 "language": "GDScript",
 "path": "res://Sources/Nutrients/Nutrient.gd"
 } ]
 _global_script_class_icons={
+"Bacteria": "",
 "Nutrient": ""
 }
 
 [application]
 
 config/name="Gutstuck_Project"
+run/main_scene="res://Sources/Levels/Level_1.tscn"
 config/icon="res://icon.png"
 
 [display]
