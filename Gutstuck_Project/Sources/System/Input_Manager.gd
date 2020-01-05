@@ -30,7 +30,8 @@ func _ready():
 	add_child(colorRect)
 	colorRect.color = box_color
 
-func _input(event):
+
+func _process(delta):
 	CreateBox()
 
 
@@ -46,7 +47,6 @@ func CreateBox():
 		colorRect.set_begin(Vector2(min(initialPos.x, currentPos.x), min(initialPos.y, currentPos.y)))
 		colorRect.set_end(Vector2(max(initialPos.x, currentPos.x), max(initialPos.y, currentPos.y)))
 	elif(Input.is_action_just_released("Main_Command")):
-		print("Main_Command fired twice :o") # to be corrected
 		SelectObjects()
 		colorRect.set_begin(Vector2(0,0))
 		colorRect.set_end(Vector2(0,0))
@@ -58,5 +58,6 @@ func CreateBox():
 func SelectObjects():
 	var selfRect = colorRect.get_rect()
 	for f_bacteria in get_tree().get_nodes_in_group("F_Bacteria"):
-		print(selfRect.has_point(f_bacteria.position))
-		f_bacteria.emit_signal("select", selfRect.has_point(f_bacteria.position)) # https://www.youtube.com/watch?v=w-X6RGC-5EU seems to explain the problem
+		if(selfRect.has_point(f_bacteria.position)):
+			f_bacteria.Being_Selected(true)
+		# f_bacteria.emit_signal("select", selfRect.has_point(f_bacteria.position)) # https://www.youtube.com/watch?v=w-X6RGC-5EU seems to explain the problem
