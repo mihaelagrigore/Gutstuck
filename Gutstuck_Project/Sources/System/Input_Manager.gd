@@ -1,5 +1,7 @@
 extends Control
 
+class_name Input_Manager
+
 # get reference to scene camera
 export (NodePath) var cameraPath
 # create ColorRect node
@@ -19,7 +21,7 @@ var selectedObjects = []
 
 
 func _ready():
-	queue_free()
+	#queue_free()
 	if cameraPath != null:
 		camera = get_node(cameraPath)
 	else:
@@ -35,14 +37,17 @@ func _input(event):
 func CreateBox():
 	if(Input.is_action_just_pressed("Main_Command")):
 		initialPos = get_global_mouse_position()
-		#currentPos = get_global_mouse_position()
+		currentPos = get_global_mouse_position()
+		colorRect.set_begin(Vector2(min(initialPos.x, currentPos.x), min(initialPos.y, currentPos.y)))
+		colorRect.set_end(Vector2(max(initialPos.x, currentPos.x), max(initialPos.y, currentPos.y)))
 		colorRect.set_begin(initialPos)
 	elif(Input.is_action_pressed("Main_Command")):
 		currentPos = get_global_mouse_position()
 		colorRect.set_begin(Vector2(min(initialPos.x, currentPos.x), min(initialPos.y, currentPos.y)))
 		colorRect.set_end(Vector2(max(initialPos.x, currentPos.x), max(initialPos.y, currentPos.y)))
 	elif(Input.is_action_just_released("Main_Command")):
-		#SelectObjects()
+		print("Main_Command fired twice :o") # to be corrected
+		SelectObjects()
 		colorRect.set_begin(Vector2(0,0))
 		colorRect.set_end(Vector2(0,0))
 		initialPos = Vector2(0,0)
@@ -52,6 +57,6 @@ func CreateBox():
 # https://www.youtube.com/watch?v=JFQXI3to0b4
 func SelectObjects():
 	var selfRect = colorRect.get_rect()
-	print(selfRect)
 	for f_bacteria in get_tree().get_nodes_in_group("F_Bacteria"):
-		f_bacteria.emit_signal("select", selfRect.has_point(f_bacteria.get_pos()))
+		print(selfRect.has_point(f_bacteria.position))
+		f_bacteria.emit_signal("select", selfRect.has_point(f_bacteria.position)) # https://www.youtube.com/watch?v=w-X6RGC-5EU seems to explain the problem

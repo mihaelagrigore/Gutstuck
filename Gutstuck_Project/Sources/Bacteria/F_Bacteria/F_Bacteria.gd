@@ -6,8 +6,19 @@ extends Bacteria
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	connect("select", self, "Being_Selected")
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
 #	pass
+
+func Being_Selected(unit) :
+	print("i'm being selected !")
+	
+func select(unit) :
+	print("i'm being selected !")
+
+
+func get_pos() :
+	print(position)
