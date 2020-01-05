@@ -10,7 +10,7 @@ var initialPos = Vector2(0,0)
 var currentPos = Vector2(0,0)
 
 # parameter to configure the color of the selection box : red, green, blue, transparency (between 0 and 1)
-export var box_color = Color(1,1,1,0.1)
+export var box_color = Color(1,1,1,1)
 
 
 var camera
@@ -19,6 +19,7 @@ var selectedObjects = []
 
 
 func _ready():
+	queue_free()
 	if cameraPath != null:
 		camera = get_node(cameraPath)
 	else:
@@ -48,6 +49,7 @@ func CreateBox():
 		currentPos = Vector2(0,0)
 
 
+# https://www.youtube.com/watch?v=JFQXI3to0b4
 func SelectObjects():
 	var selfRect = colorRect.get_rect()
 	print(selfRect)
