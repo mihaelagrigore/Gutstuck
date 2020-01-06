@@ -9,7 +9,7 @@
 [ext_resource path="res://Sources/Bacteria/F_Bacteria/F_Bacteria.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sources/System/Input_Manager.tscn" type="PackedScene" id=8]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 length = 2.0
 loop = true
 tracks/0/type = "value"
@@ -54,7 +54,7 @@ autoplay = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Wobling"
-anims/Wobling = SubResource( 2 )
+anims/Wobling = SubResource( 1 )
 
 [node name="F_Nutrient_A2D" parent="." instance=ExtResource( 6 )]
 position = Vector2( -83.9772, -30.3251 )

@@ -12,6 +12,3 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta: float) -> void:
 #	pass
-
-func Being_Selected(unit) :
-	print("i'm being selected !")

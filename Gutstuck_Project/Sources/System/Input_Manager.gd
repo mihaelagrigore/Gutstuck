@@ -11,8 +11,12 @@ var colorRect = ColorRect.new()
 var initialPos = Vector2(0,0)
 var currentPos = Vector2(0,0)
 
+var rightClicPos = Vector2(0,0)
+
 # parameter to configure the color of the selection box : red, green, blue, transparency (between 0 and 1)
 export var box_color = Color(1,1,1,1)
+
+var bacterias = []
 
 
 var camera
@@ -31,8 +35,9 @@ func _ready():
 	colorRect.color = box_color
 
 
-func _process(delta):
+func _process(delta): # problem of "input fired twice" solve thanks to https://github.com/godotengine/godot/issues/24944
 	CreateBox()
+	Action()
 
 
 func CreateBox():
@@ -54,10 +59,25 @@ func CreateBox():
 		currentPos = Vector2(0,0)
 
 
+func Action():
+	# Handling right clic (Second_Command) to send bacteria at mouse position
+	if(Input.is_action_just_pressed("Second_Command")):
+		rightClicPos = Vector2(get_global_mouse_position().x,get_global_mouse_position().y)
+		SendBacterias(rightClicPos)
+
+
 # https://www.youtube.com/watch?v=JFQXI3to0b4
 func SelectObjects():
 	var selfRect = colorRect.get_rect()
-	for f_bacteria in get_tree().get_nodes_in_group("F_Bacteria"):
-		if(selfRect.has_point(f_bacteria.position)):
-			f_bacteria.Being_Selected(true)
-		# f_bacteria.emit_signal("select", selfRect.has_point(f_bacteria.position)) # https://www.youtube.com/watch?v=w-X6RGC-5EU seems to explain the problem
+	var temp_bacterias_selected = []
+	for bacteria in get_tree().get_nodes_in_group("Bacteria"):
+		if(selfRect.has_point(bacteria.position)):
+			temp_bacterias_selected.push_back(bacteria)
+	if !temp_bacterias_selected.empty():
+		for bacteria in temp_bacterias_selected:
+			bacteria.state = 1
+			bacterias.push_back(bacteria)
+
+func SendBacterias(position):
+	for bacteria in bacterias:
+		bacteria.target = position
