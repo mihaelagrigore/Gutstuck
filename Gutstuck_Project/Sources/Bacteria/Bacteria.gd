@@ -65,7 +65,6 @@ func _physics_process(delta):
 func _process(delta):
 	if energy_level==0:
 		queue_free() # Removes the node from the scene and frees it when it becomes safe to do so.
-		pass
 	# Evolution of energy quantity
 	if state==STATE_CHILL or state==STATE_SELECTED:
 		energy_level -= ENERGY_LOS_PER_SECOND_CHILL * delta
@@ -73,7 +72,7 @@ func _process(delta):
 		energy_level -= ENERGY_LOS_PER_SECOND_MOVE * delta
 	elif state==STATE_EATING:
 		update_energy_bar(energy_level)
-		#TODO: update the energy bar displayed above the bacteria Sprite
+		# update the energy bar displayed above the bacteria Sprite
 	elif state==STATE_FULL:
 		#TODO: implement replication
 		pass #remove pass once code is added above this line
