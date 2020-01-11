@@ -66,3 +66,4 @@ position = Vector2( 49.7643, -42.7661 )
 [node name="Input_Manager" parent="." instance=ExtResource( 8 )]
 cameraPath = NodePath("../Camera2D")
 box_color = Color( 1, 1, 1, 0.392157 )
+

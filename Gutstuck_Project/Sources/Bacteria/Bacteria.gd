@@ -48,7 +48,7 @@ func _input(event):
 
 func _physics_process(delta):
 	var velocity = Vector2()
-	if state== STATE_SELECTED:
+	if state== STATE_MOVING:
 		velocity = (target - position).normalized() * speed
 		#print("velocity=",velocity)
 		#rotation = velocity.angle()
