@@ -7,7 +7,7 @@ const ENERGY_LOS_PER_SECOND_MOVE = 1
 const MAX_ENERGY=100
 
 var target = Vector2()
-export (int) var speed = 200
+export (int) var speed = 400
 
 var generation_number = 0 #measures the number of generation to kill the oldest ones in a situation of conflict
 var energy_level = INITIAL_ENERGY
@@ -50,7 +50,7 @@ func _physics_process(delta):
 	var velocity = Vector2()
 	if state== STATE_SELECTED:
 		velocity = (target - position).normalized() * speed
-		print("velocity=",velocity)
+		#print("velocity=",velocity)
 		#rotation = velocity.angle()
 	#if (target - position).length() > 5: that was in the tuto, thought to replace it with the other if
 		move_and_slide(velocity)

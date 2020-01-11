@@ -26,26 +26,29 @@ func _process(delta: float) -> void:
 #	pass
 
 func _on_F_Nutrient_A2D_body_entered(body) -> void:
+	print("Body entered event")
 	if body.is_in_group("Bacteria"):
 		#add bacteria to the nutrient's list of bacterias
 		#that are feeding on it
 		colliding_bacteria.append(body)
 		
 		#add myself to the list that the bacteria keeps
-		body.colliding_nutrient.append(self)
+		#it doesn't keep a list anymore
+		#body.colliding_nutrient.append(self)
 		
 		#change my state
 		state_set(STATE_ATTACKED)
 
 func _on_F_Nutrient_A2D_body_exited(body: PhysicsBody2D) -> void:
+	print("Body exited event")
 	if body.is_in_group("Bacteria"):
 		#remove the bacteria from the list of bacteria
 		#currently feeding on this nutrient
-		colliding_bacteria.remove(body) 
+		colliding_bacteria.erase(body) 
 		if colliding_bacteria.empty():
 			#no longer under attack
 			state = STATE_CHILL
 		
 		#remove this nutrient from the colliding bacteria's 
 		#list of nutrients that it's currently feeding on
-		body.colliding_nutrients.remove(body.colliding_nutrients.find(self))
+		#body.colliding_nutrients.remove(body.colliding_nutrients.find(self))
