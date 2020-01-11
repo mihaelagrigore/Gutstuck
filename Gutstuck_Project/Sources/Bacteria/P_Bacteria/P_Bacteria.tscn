@@ -1,13 +1,7 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
 
-[node name="P_Bacteria" type="KinematicBody2D" groups=[
-"Bacteria",
-]]
+[ext_resource path="res://Sources/Bacteria/Bacteria.tscn" type="PackedScene" id=1]
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Bacteria" instance=ExtResource( 1 )]
+modulate = Color( 0.878431, 0.0627451, 0.996078, 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-
-[node name="TextureProgress" type="TextureProgress" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0

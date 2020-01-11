@@ -81,3 +81,4 @@ func SelectObjects():
 func SendBacterias(position):
 	for bacteria in bacterias:
 		bacteria.target = position
+		bacteria.state = 2
