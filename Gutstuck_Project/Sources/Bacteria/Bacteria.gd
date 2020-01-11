@@ -43,13 +43,14 @@ func _ready():
 func _input(event):
 	if state==STATE_SELECTED:
 		look_at(get_global_mouse_position())
-		if event.is_action_pressed('click'):
-			target = get_global_mouse_position()
+#		if event.is_action_pressed('click'):
+#			target = get_global_mouse_position()
 
 func _physics_process(delta):
 	var velocity = Vector2()
-	if state== STATE_MOVING:
+	if state== STATE_SELECTED:
 		velocity = (target - position).normalized() * speed
+		print("velocity=",velocity)
 		#rotation = velocity.angle()
 	#if (target - position).length() > 5: that was in the tuto, thought to replace it with the other if
 		move_and_slide(velocity)
