@@ -1,4 +1,4 @@
-extends Nutrient
+#extends Nutrient
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -17,7 +17,6 @@ func _process(delta: float) -> void:
 		
 		#TODO: replace Sprite with a 
 		#Particle2D explosion effect
-		
 		
 		#last thing I do: I delete myelf from memory
 		queue_free()

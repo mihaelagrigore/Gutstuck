@@ -1,5 +1,5 @@
-#extends KinematicBody2D
-extends Area2D
+extends KinematicBody2D
+#extends Area2D
 class_name Nutrient
 
 const STATE_CHILL = 0		#nothing happening
