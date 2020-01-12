@@ -42,7 +42,7 @@ func _ready():
 
 func _input(event):
 	if state==STATE_SELECTED:
-		look_at(get_global_mouse_position())
+		$Sprite.look_at(get_global_mouse_position())
 #		if event.is_action_pressed('click'):
 #			target = get_global_mouse_position()
 
@@ -50,6 +50,7 @@ func _physics_process(delta):
 	var velocity = Vector2()
 	if state== STATE_MOVING:
 		velocity = (target - position).normalized() * speed
+		$Sprite.look_at(get_global_mouse_position())
 		#print("velocity=",velocity)
 		#rotation = velocity.angle()
 	#if (target - position).length() > 5: that was in the tuto, thought to replace it with the other if

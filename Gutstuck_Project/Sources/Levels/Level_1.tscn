@@ -6,8 +6,8 @@
 [ext_resource path="res://Assets/Textures/Asset_fiber.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Audios/Musics/loop_bubbles_02.ogg" type="AudioStream" id=5]
 [ext_resource path="res://Sources/Nutrients/F_Nutrients/F_Nutrient_A2D.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Sources/Bacteria/F_Bacteria/F_Bacteria.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Sources/System/Input_Manager.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sources/System/Input_Manager.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Sources/Bacteria/Bacteria_Manager.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=1]
 length = 2.0
@@ -58,12 +58,9 @@ anims/Wobling = SubResource( 1 )
 [node name="F_Nutrient_A2D" parent="." instance=ExtResource( 6 )]
 position = Vector2( -83.9772, -30.3251 )
 
-[node name="F_Bacteria" parent="." groups=[
-"F_Bacteria",
-] instance=ExtResource( 7 )]
-position = Vector2( 49.7643, -42.7661 )
-
-[node name="Input_Manager" parent="." instance=ExtResource( 8 )]
+[node name="Input_Manager" parent="." instance=ExtResource( 7 )]
 cameraPath = NodePath("../Camera2D")
 box_color = Color( 1, 1, 1, 0.392157 )
+
+[node name="Bacteria_Manager" parent="." instance=ExtResource( 8 )]
 

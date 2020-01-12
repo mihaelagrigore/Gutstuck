@@ -5,12 +5,12 @@
 [ext_resource path="res://Assets/Textures/Life_Bar_Under.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Textures/Life_Bar.png" type="Texture" id=4]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 30.7896, 29.9331 )
+[sub_resource type="CircleShape2D" id=1]
 
 [node name="Bacteria" type="KinematicBody2D" groups=[
 "Bacteria",
 ]]
+scale = Vector2( 0.2, 0.2 )
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
