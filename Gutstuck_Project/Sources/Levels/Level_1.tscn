@@ -5,9 +5,9 @@
 [ext_resource path="res://Assets/Textures/asset_mucus.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Textures/Asset_fiber.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Audios/Musics/loop_bubbles_02.ogg" type="AudioStream" id=5]
-[ext_resource path="res://Sources/Nutrients/F_Nutrients/F_Nutrient_A2D.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Sources/System/Input_Manager.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Sources/Bacteria/Bacteria_Manager.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Sources/System/Input_Manager.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Sources/Bacteria/Bacteria_Manager.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Sources/Nutrients/F_Nutrients/F_Nutrient.tscn" type="PackedScene" id=8]
 
 [sub_resource type="Animation" id=1]
 length = 2.0
@@ -28,6 +28,7 @@ tracks/0/keys = {
 [node name="Level_1" type="Node2D"]
 
 [node name="Asset_background" type="Sprite" parent="."]
+position = Vector2( -1.63696, -6.54785 )
 scale = Vector2( 0.7, 0.7 )
 texture = ExtResource( 1 )
 
@@ -55,12 +56,11 @@ stream = ExtResource( 5 )
 autoplay = "Wobling"
 anims/Wobling = SubResource( 1 )
 
-[node name="F_Nutrient_A2D" parent="." instance=ExtResource( 6 )]
-position = Vector2( -83.9772, -30.3251 )
-
-[node name="Input_Manager" parent="." instance=ExtResource( 7 )]
+[node name="Input_Manager" parent="." instance=ExtResource( 6 )]
 cameraPath = NodePath("../Camera2D")
 box_color = Color( 1, 1, 1, 0.392157 )
 
-[node name="Bacteria_Manager" parent="." instance=ExtResource( 8 )]
+[node name="Bacteria_Manager" parent="." instance=ExtResource( 7 )]
 
+[node name="F_Nutrient" parent="Bacteria_Manager" instance=ExtResource( 8 )]
+position = Vector2( -97.1961, 3.88785 )

@@ -11,6 +11,7 @@ export (int) var speed = 400
 
 var generation_number = 0 #measures the number of generation to kill the oldest ones in a situation of conflict
 var energy_level = INITIAL_ENERGY
+var energy_per_bite = 10
 
 #energy_after_foraging var must be dropped
 #it must be declared as a local var inside the functions
@@ -21,7 +22,6 @@ var energy_level = INITIAL_ENERGY
 
 onready var energy_level_bar = $Energy_level_bar
 
-
 const STATE_CHILL = 0
 const STATE_SELECTED = 1
 const STATE_MOVING = 2
@@ -29,8 +29,14 @@ const STATE_EATING = 3
 const STATE_FULL = 4
 const STATE_REPLICATING = 5
 
-var state = STATE_CHILL #state can contain {STATE_CHILL, STATE_SELECTED, STATE_MOVING, STATE_EATING, STATE_REPLICATING}
-#var colliding_nutrients
+var state = STATE_CHILL setget state_set, state_get
+var colliding_nutrients = []
+
+func state_set(value):
+	state = value
+
+func state_get():
+	return state
 
 #food_sources
 # Called when the node enters the scene tree for the first time.
@@ -67,46 +73,73 @@ func _process(delta):
 	if energy_level==0:
 		queue_free() # Removes the node from the scene and frees it when it becomes safe to do so.
 	# Evolution of energy quantity
-	if state==STATE_CHILL or state==STATE_SELECTED:
-		energy_level -= ENERGY_LOS_PER_SECOND_CHILL * delta
-	elif state==STATE_MOVING:
-		energy_level -= ENERGY_LOS_PER_SECOND_MOVE * delta
-	elif state==STATE_EATING:
-		update_energy_bar(energy_level)
-		# update the energy bar displayed above the bacteria Sprite
-	elif state==STATE_FULL:
-		#TODO: implement replication
-		pass #remove pass once code is added above this line
+	#TODO: implement energy loss as a function of time
+	#I commented the ones below because they led to weird
+	#energy quantities like 94.688899
+	#Thinking to implement energy loss as a Timer
+#	if state==STATE_CHILL or state==STATE_SELECTED:
+#		energy_level -= ENERGY_LOS_PER_SECOND_CHILL * delta
+#	elif state==STATE_MOVING:
+#		energy_level -= ENERGY_LOS_PER_SECOND_MOVE * delta
+#		# update the energy bar displayed above the bacteria Sprite
+#	elif state==STATE_FULL:
+#		#TODO: implement replication
+#		pass #remove pass once code is added above this line
 
+func finish_eating():
+	print("[Bacteria] finished eating...deactivating")
+	$MealTimer.stop()
+	deactivate()
 
 func update_energy_bar(value: int):
 	energy_level_bar.value=value
 	pass
-
-func feed_me(energy_from_nutrient: int) -> int :
-	var morsel
-	energy_level + energy_from_nutrient 
-	if (energy_level+energy_from_nutrient) < MAX_ENERGY:
-		morsel = energy_from_nutrient
-		energy_level += energy_from_nutrient
-	else:
-		morsel = MAX_ENERGY - energy_level
-		energy_level = MAX_ENERGY
-		state = STATE_FULL
-		#done eating, I deactivate my collisionshape
-		#this way all nutrients I was feeding on
-		#get a body_exit signal triggered and are informed I disappeared
-		#don't forget to activate back
-		deactivate()
-	return morsel
-
-func stop_feeding():
-	state=STATE_CHILL
 	
 func activate():
-	get_node("CollisionShape2D").disabled = false
+	get_node("NutrientInteraction/CollisionShape2D").disabled = false
 	visible = true
 	
 func deactivate():
-	get_node("CollisionShape2D").disabled = true
-	visible = false
+	get_node("NutrientInteraction/CollisionShape2D").disabled = true
+	
+func _on_NutrientInteraction_body_entered(body: PhysicsBody2D) -> void:
+	print("[Bacteria] Body entered event: ")
+	print(body.get_class())
+	if body.is_in_group("Nutrient"): #is the colliding entity a bacteria ?
+		print('[Bacteria] appending nutrient') 
+		colliding_nutrients.append(body)		
+		if state != STATE_EATING:
+			state_set(STATE_EATING)
+			$MealTimer.start()
+
+func _on_NutrientInteraction_body_exited(body: PhysicsBody2D) -> void:
+	print("[Bacteria] Body exited event")
+	if body.is_in_group("Nutrient"):
+		#remove the bacteria from my list
+		if colliding_nutrients.count(body):
+			print('[Bacteria] removing nutrient') 
+			colliding_nutrients.erase(body) 
+		if colliding_nutrients.empty():
+			state = STATE_CHILL #no longer under attack
+
+func _on_MealTimer_timeout() -> void:
+	# we should always be in STATE_EATING when this timer goes off
+	# but for now it's good to check just to staty safe
+	if state==STATE_EATING: 
+		var count = 0
+		for nutrient in colliding_nutrients:
+			count = count + 1
+			print(str("[bite from Nutrient ",count,"]"))
+			var morsel = energy_per_bite
+			if energy_level + energy_per_bite >= MAX_ENERGY:
+				morsel =  MAX_ENERGY - energy_level
+				state = STATE_FULL
+			print(str("requested: ", morsel))	
+			var real_morsel = nutrient.bite_me(morsel)
+			print(str("received: ", real_morsel))	
+			energy_level += real_morsel
+			$Energy.text = str(energy_level)
+			
+			if state == STATE_FULL:
+				finish_eating()
+			#update_energy_bar(energy_level)

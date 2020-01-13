@@ -16,52 +16,6 @@ var state = STATE_CHILL setget state_set, state_get
 var energy = INITIAL_ENERGY setget energy_set, energy_get
 
 var colliding_bacteria = [] 
-var one_bite = 25
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	state = STATE_CHILL
-	energy = INITIAL_ENERGY
-
-func _process(delta):
-	if state == STATE_ATTACKED:
-		for bacteria in colliding_bacteria:
-			var morsel = 0
-			if energy >= one_bite:
-				#feed the bacteria the standard energy morsel
-				morsel = bacteria.feed_me(one_bite)
-			else:
-				morsel = bacteria.feed_me(energy)
-			energy -= morsel
-			#if my energy level is 0, I change my state. 
-			#my children will know what to do 
-			if energy == 0:
-				state = STATE_DEPLETED
-				colliding_bacteria.clear()
-				deactivate()
-				#TODO: explode into pieces
-				break #terminate the for loop
-
-# Bacteria feeding on me will call this function
-func bite_me(bite_size: int) -> int:
-	var morsel = 0
-	if energy >= bite_size:
-		morsel = bite_size
-		energy -= bite_size
-	else:
-		morsel = energy
-		energy = 0
-
-	#if my energy level is 0, I change my state. 
-	#my children will know what to do 
-	if energy == 0:
-		state = STATE_DEPLETED
-
-	return morsel
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 func state_set(value):
 	state = value
@@ -74,6 +28,42 @@ func energy_set(value):
 
 func energy_get():
 	return energy
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	state = STATE_CHILL
+	energy = INITIAL_ENERGY
+
+func _process(delta):
+	if state == STATE_ATTACKED:
+		if energy == 0:
+			state = STATE_DEPLETED
+			colliding_bacteria.clear()
+			deactivate()
+			#TODO: explode into pieces
+
+
+# Bacteria feeding on me will call this function
+# Bacteria tries to bite an amount of energy = bite_size
+# I might have less energy left than bite_size
+# So I return bite_size >= energy ? bite_size : energy (ternary operator) 
+func bite_me(bite_size: int) -> int:
+	var morsel = 0
+	if energy >= bite_size:
+		morsel = bite_size
+		energy -= bite_size
+	else:
+		morsel = energy
+		energy = 0
+
+	$Energy.text = str(energy)
+
+	#if my energy level is 0, I change my state. 
+	#my children will know what to do 
+	if energy == 0:
+		state = STATE_DEPLETED
+
+	return morsel
 	
 func activate():
 	get_node("CollisionShape2D").disabled = false
@@ -82,3 +72,22 @@ func activate():
 func deactivate():
 	get_node("CollisionShape2D").disabled = true
 	visible = false
+	
+func _on_BacteriaInteraction_body_entered(body: PhysicsBody2D) -> void:
+	print("[Nutrient] Body entered event: ")
+	print(body.get_class())
+	if body.is_in_group("Bacteria"): #is the colliding entity a bacteria ?
+		#add bacteria to the nutrient's list of bacterias currently feeding on it
+		print('[Nutrient] appending bacteria') 
+		colliding_bacteria.append(body)
+		state_set(STATE_ATTACKED)
+
+func _on_BacteriaInteraction_body_exited(body: PhysicsBody2D) -> void:
+	print("[Nutrient] Body exited event")
+	if body.is_in_group("Bacteria"):
+		#remove the bacteria from my list
+		if colliding_bacteria.count(body):
+			print('[Nutrient] removing bacteria') 
+			colliding_bacteria.erase(body) 
+		if colliding_bacteria.empty():
+			state = STATE_CHILL #no longer under attacl

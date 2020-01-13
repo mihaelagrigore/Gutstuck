@@ -1,11 +1,20 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Sources/Bacteria/F_Bacteria/F_Bacteria.gd" type="Script" id=1]
+[ext_resource path="res://Sources/Bacteria/Bacteria.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Textures/Life_Bar_Under.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Textures/Life_Bar.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="CircleShape2D" id=1]
+
+[sub_resource type="DynamicFont" id=2]
+size = 60
+font_data = ExtResource( 5 )
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 30.8291
+height = 0.637798
 
 [node name="Bacteria" type="KinematicBody2D" groups=[
 "Bacteria",
@@ -19,12 +28,30 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
-[node name="TextureProgress" type="TextureProgress" parent="."]
+[node name="EnergyLevel" type="TextureProgress" parent="."]
 margin_left = -72.1671
-margin_top = -53.8745
+margin_top = -70.2338
 margin_right = 117.833
-margin_bottom = -8.87451
+margin_bottom = -25.2338
 rect_scale = Vector2( 0.76, 0.52 )
+value = 50.0
 texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 4 )
 
+[node name="Energy" type="Label" parent="."]
+margin_left = -44.8283
+margin_top = -142.391
+margin_right = 41.1717
+margin_bottom = -69.3908
+custom_fonts/font = SubResource( 2 )
+text = "50"
+
+[node name="NutrientInteraction" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NutrientInteraction"]
+shape = SubResource( 3 )
+
+[node name="MealTimer" type="Timer" parent="."]
+[connection signal="body_entered" from="NutrientInteraction" to="." method="_on_NutrientInteraction_body_entered"]
+[connection signal="body_exited" from="NutrientInteraction" to="." method="_on_NutrientInteraction_body_exited"]
+[connection signal="timeout" from="MealTimer" to="." method="_on_MealTimer_timeout"]

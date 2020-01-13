@@ -4,23 +4,33 @@
 [ext_resource path="res://Sources/Nutrients/F_Nutrients/F_Nutrient.gd" type="Script" id=2]
 [ext_resource path="res://Assets/Textures/Asset_fiber.png" type="Texture" id=3]
 
-[node name="F_Nutrient" index="0" instance=ExtResource( 1 )]
+[node name="F_Nutrient" groups=[
+"Nutrient",
+] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2( -0.49007, 0.698456 )
+scale = Vector2( 0.6, 0.8 )
 
 [node name="Sprite" parent="." index="1"]
 position = Vector2( 0.317303, 0.323101 )
-scale = Vector2( 0.3, 0.3 )
+scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 3 )
 
 [node name="TextureProgress" parent="." index="2"]
-margin_left = -37.5443
-margin_top = -45.3422
-margin_right = 152.456
-margin_bottom = -0.342167
+margin_left = -14.5669
+margin_top = -33.3902
+margin_right = 175.433
+margin_bottom = 11.6098
 value = 100.0
 
 [node name="CollisionShape2D" parent="BacteriaInteraction" index="0"]
-position = Vector2( -0.529602, 0.529633 )
+position = Vector2( -0.210709, -0.243331 )
+scale = Vector2( 0.9, 0.8 )
+
+[node name="Energy" parent="." index="4"]
+margin_left = -22.7213
+margin_top = -56.4913
+margin_right = 22.2787
+margin_bottom = -31.4913
