@@ -44,11 +44,13 @@ func CreateBox():
 	if(Input.is_action_just_pressed("Main_Command")):
 		initialPos = get_global_mouse_position()
 		currentPos = get_global_mouse_position()
+		print(str('is_action_just_pressed: ', initialPos))
 		colorRect.set_begin(Vector2(min(initialPos.x, currentPos.x), min(initialPos.y, currentPos.y)))
 		colorRect.set_end(Vector2(max(initialPos.x, currentPos.x), max(initialPos.y, currentPos.y)))
 		colorRect.set_begin(initialPos)
 	elif(Input.is_action_pressed("Main_Command")):
 		currentPos = get_global_mouse_position()
+		print(str('is_action_pressed: ', currentPos))
 		colorRect.set_begin(Vector2(min(initialPos.x, currentPos.x), min(initialPos.y, currentPos.y)))
 		colorRect.set_end(Vector2(max(initialPos.x, currentPos.x), max(initialPos.y, currentPos.y)))
 	elif(Input.is_action_just_released("Main_Command")):

@@ -2,8 +2,8 @@ extends KinematicBody2D
 class_name Bacteria
 
 const INITIAL_ENERGY=50
-const ENERGY_LOS_PER_SECOND_CHILL = 1
-const ENERGY_LOS_PER_SECOND_MOVE = 1
+const ENERGY_LOS_PER_PERIOD_CHILL = 1
+const ENERGY_LOS_PER_PERIOD_MOVE = 1
 const MAX_ENERGY=100
 
 var target = Vector2()
@@ -18,7 +18,6 @@ var energy_per_bite = 10
 #where it is being used
 #also, mind that you use the var before initializing it (before
 #attributing a value to it) 
-
 
 onready var energy_level_bar = $Energy_level_bar
 
@@ -43,8 +42,8 @@ func state_get():
 func _ready():
 	if generation_number >0:
 		generation_number+=1
+	$EnergyLossTimer.start()	
 	pass # Replace with function body.
-
 
 func _input(event):
 	if state==STATE_SELECTED:
@@ -87,21 +86,17 @@ func _process(delta):
 #		pass #remove pass once code is added above this line
 
 func finish_eating():
-	print("[Bacteria] finished eating...deactivating")
+	print("[Bacteria] finished eating...")
 	$MealTimer.stop()
-	deactivate()
+	#it feels natural to have some inertia when we are full
+	#when the SaturationTimer is off, I can start loosing energy
+	#and start eating again
+	$SaturationTimer.start() 
 
 func update_energy_bar(value: int):
 	energy_level_bar.value=value
 	pass
-	
-func activate():
-	get_node("NutrientInteraction/CollisionShape2D").disabled = false
-	visible = true
-	
-func deactivate():
-	get_node("NutrientInteraction/CollisionShape2D").disabled = true
-	
+		
 func _on_NutrientInteraction_body_entered(body: PhysicsBody2D) -> void:
 	print("[Bacteria] Body entered event: ")
 	print(body.get_class())
@@ -109,6 +104,7 @@ func _on_NutrientInteraction_body_entered(body: PhysicsBody2D) -> void:
 		print('[Bacteria] appending nutrient') 
 		colliding_nutrients.append(body)		
 		if state != STATE_EATING:
+			$EnergyLossTimer.stop()
 			state_set(STATE_EATING)
 			$MealTimer.start()
 
@@ -143,3 +139,13 @@ func _on_MealTimer_timeout() -> void:
 			if state == STATE_FULL:
 				finish_eating()
 			#update_energy_bar(energy_level)
+
+func _on_SaturationTimer_timeout() -> void:
+	state_set(STATE_CHILL)
+	$SaturationTimer.stop()
+	$EnergyLossTimer.start()
+
+func _on_EnergyLossTimer_timeout() -> void:
+	energy_level -= ENERGY_LOS_PER_PERIOD_CHILL
+	$Energy.text = str(energy_level)
+	

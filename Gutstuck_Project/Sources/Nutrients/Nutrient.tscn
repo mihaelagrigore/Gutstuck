@@ -41,11 +41,12 @@ position = Vector2( 0.470398, 0.529633 )
 shape = SubResource( 2 )
 
 [node name="Energy" type="Label" parent="."]
-margin_left = -16.2017
-margin_top = -63.0
-margin_right = 18.7983
-margin_bottom = -43.0
+margin_left = -15.8025
+margin_top = -61.0042
+margin_right = 19.1975
+margin_bottom = -41.0042
 custom_fonts/font = SubResource( 3 )
 text = "100"
+align = 1
 [connection signal="body_entered" from="BacteriaInteraction" to="." method="_on_BacteriaInteraction_body_entered"]
 [connection signal="body_exited" from="BacteriaInteraction" to="." method="_on_BacteriaInteraction_body_exited"]
