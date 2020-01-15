@@ -132,10 +132,10 @@ func _on_MealTimer_timeout() -> void:
 			print(str("received: ", real_morsel))	
 			energy_level += real_morsel
 			$Energy.text = str(energy_level)
-			
+			update_energy_bar(energy_level)
 			if state == STATE_FULL:
 				finish_eating()
-			#update_energy_bar(energy_level)
+
 
 func _on_SaturationTimer_timeout() -> void:
 	state_set(STATE_CHILL)
@@ -143,6 +143,10 @@ func _on_SaturationTimer_timeout() -> void:
 	$EnergyLossTimer.start()
 
 func _on_EnergyLossTimer_timeout() -> void:
-	energy_level -= ENERGY_LOS_PER_PERIOD_CHILL
+	if state==STATE_CHILL:
+		energy_level -= ENERGY_LOS_PER_PERIOD_CHILL
+	if state==STATE_MOVING:
+		energy_level -= ENERGY_LOS_PER_PERIOD_MOVE
 	$Energy.text = str(energy_level)
+	update_energy_bar(energy_level)
 	
