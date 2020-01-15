@@ -63,12 +63,16 @@ func _input(event):
 func _physics_process(delta):
 	var velocity = Vector2()
 	if state == STATE_MOVING:
+		if (abs(target.x-position.x)<5) && (abs(target.y-position.y))<5:
+			target = position
+			state=STATE_CHILL
+			pass
 		velocity = (target - position).normalized() * speed
-		$Sprite.look_at(get_global_mouse_position())
+		move_and_slide(velocity)
+		#$Sprite.look_at(get_global_mouse_position())
 		#rotation = velocity.angle()
 	#if (target - position).length() > 5: that was in the tuto, thought to replace it with the other if
-		move_and_slide(velocity)
-
+		
 #		var collision = move_and_collide(velocity * delta)
 #		#A collision will stop the moving except if the collider is another bacteria
 #		if collision:

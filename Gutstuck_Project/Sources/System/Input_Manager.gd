@@ -2,6 +2,8 @@ extends Control
 
 class_name Input_Manager
 
+signal move_bacteria
+
 # get reference to scene camera
 export (NodePath) var cameraPath
 # create ColorRect node
@@ -82,5 +84,7 @@ func SelectObjects():
 
 func SendBacterias(position):
 	for bacteria in bacterias:
+		print("sending bacteria to position")
 		bacteria.target = position
 		bacteria.state_set(bacteria.STATE_MOVING) 
+		#emit_signal("move_bacteria")
