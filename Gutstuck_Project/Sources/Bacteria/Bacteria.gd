@@ -22,12 +22,15 @@ var energy_per_bite = 10
 onready var Energy_Level_Bar = $EnergyLevel
 
 const STATE_CHILL = 0
-const STATE_SELECTED = 1
-const STATE_MOVING = 2
-const STATE_EATING = 3
-const STATE_FULL = 4
-const STATE_REPLICATING = 5
+const STATE_MOVING = 1
+const STATE_EATING = 2
+const STATE_FULL = 3
+const STATE_REPLICATING = 4
 
+const STATE_SELECTED = 1
+const STATE_UNSELECTED = 2
+
+var substate = STATE_UNSELECTED setget state_set, state_get
 var state = STATE_CHILL setget state_set, state_get
 var colliding_nutrients = []
 
@@ -37,6 +40,12 @@ func state_set(value):
 func state_get():
 	return state
 
+func substate_set(value):
+	substate = value
+
+func substate_get():
+	return substate
+
 #food_sources
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -44,17 +53,16 @@ func _ready():
 	$EnergyLossTimer.start()
 
 func _input(event):
-	if state==STATE_SELECTED:
+	if substate==STATE_SELECTED:
 		$Sprite.look_at(get_global_mouse_position())
 #		if event.is_action_pressed('click'):
 #			target = get_global_mouse_position()
 
 func _physics_process(delta):
 	var velocity = Vector2()
-	if state== STATE_MOVING:
+	if state == STATE_MOVING:
 		velocity = (target - position).normalized() * speed
 		$Sprite.look_at(get_global_mouse_position())
-		#print("velocity=",velocity)
 		#rotation = velocity.angle()
 	#if (target - position).length() > 5: that was in the tuto, thought to replace it with the other if
 		move_and_slide(velocity)

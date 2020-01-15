@@ -77,10 +77,10 @@ func SelectObjects():
 			temp_bacterias_selected.push_back(bacteria)
 	if !temp_bacterias_selected.empty():
 		for bacteria in temp_bacterias_selected:
-			bacteria.state = 1
+			bacteria.substate_set(bacteria.STATE_SELECTED)
 			bacterias.push_back(bacteria)
 
 func SendBacterias(position):
 	for bacteria in bacterias:
 		bacteria.target = position
-		bacteria.state = 2
+		bacteria.state_set(bacteria.STATE_MOVING) 
