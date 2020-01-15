@@ -102,6 +102,15 @@ func finish_eating():
 	#when the SaturationTimer is off, I can start loosing energy
 	#and start eating again
 	$SaturationTimer.start() 
+	
+func prematurely_finish_eating():
+	print("[Bacteria] abandoning food...")
+	$MealTimer.stop()
+	#it feels natural to have some inertia when we are full
+	#when the SaturationTimer is off, I can start loosing energy
+	#and start eating again
+	$EnergyLossTimer.start() 
+	
 
 func update_energy_bar(value: int):
 	Energy_Level_Bar.value=value
@@ -124,9 +133,9 @@ func _on_NutrientInteraction_body_exited(body: PhysicsBody2D) -> void:
 		if colliding_nutrients.count(body):
 			print('[Bacteria] removing nutrient') 
 			colliding_nutrients.erase(body) 
-		if colliding_nutrients.empty():
-			state = STATE_CHILL #no longer under attack
-
+		if (state!=STATE_FULL) && colliding_nutrients.empty():
+			prematurely_finish_eating()
+	
 func _on_MealTimer_timeout() -> void:
 	# we should always be in STATE_EATING when this timer goes off
 	# but for now it's good to check just to staty safe

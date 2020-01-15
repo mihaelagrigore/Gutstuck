@@ -8,6 +8,7 @@ signal move_bacteria
 export (NodePath) var cameraPath
 # create ColorRect node
 var colorRect = ColorRect.new()
+var dragging = false
 
 # initialisation of initialPos (where player start clicking) and currentPos (current mouse position)
 var initialPos = Vector2(0,0)
@@ -44,6 +45,9 @@ func _process(delta): # problem of "input fired twice" solve thanks to https://g
 
 func CreateBox():
 	if(Input.is_action_just_pressed("Main_Command")):
+		if !bacterias.empty():
+			DeselectObjects()
+		print("action just pressed")
 		initialPos = get_global_mouse_position()
 		currentPos = get_global_mouse_position()
 		print(str('is_action_just_pressed: ', initialPos))
@@ -64,7 +68,7 @@ func CreateBox():
 
 
 func Action():
-	# Handling right clic (Second_Command) to send bacteria at mouse position
+	# Handling right click (Second_Command) to send bacteria at mouse position
 	if(Input.is_action_just_pressed("Second_Command")):
 		rightClicPos = Vector2(get_global_mouse_position().x,get_global_mouse_position().y)
 		SendBacterias(rightClicPos)
@@ -81,6 +85,12 @@ func SelectObjects():
 		for bacteria in temp_bacterias_selected:
 			bacteria.substate_set(bacteria.STATE_SELECTED)
 			bacterias.push_back(bacteria)
+
+func DeselectObjects():
+	print(str(bacterias.size(), " bacteria"))
+	for bacteria in bacterias:
+		bacteria.substate_set(bacteria.STATE_UNSELECTED)
+	bacterias.clear()
 
 func SendBacterias(position):
 	for bacteria in bacterias:

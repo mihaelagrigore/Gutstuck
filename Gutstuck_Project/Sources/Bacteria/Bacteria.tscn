@@ -58,7 +58,7 @@ wait_time = 10.0
 one_shot = true
 
 [node name="EnergyLossTimer" type="Timer" parent="."]
-wait_time = 20.0
+wait_time = 10.0
 [connection signal="body_entered" from="NutrientInteraction" to="." method="_on_NutrientInteraction_body_entered"]
 [connection signal="body_exited" from="NutrientInteraction" to="." method="_on_NutrientInteraction_body_exited"]
 [connection signal="timeout" from="MealTimer" to="." method="_on_MealTimer_timeout"]
