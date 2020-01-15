@@ -3,13 +3,13 @@ class_name Bacteria
 
 const INITIAL_ENERGY=50
 const ENERGY_LOS_PER_PERIOD_CHILL = 1
-const ENERGY_LOS_PER_PERIOD_MOVE = 1
+const ENERGY_LOS_PER_PERIOD_MOVE = 20
 const MAX_ENERGY=100
 
 var target = Vector2()
 export (int) var speed = 400
 
-var generation_number = 0 #measures the number of generation to kill the oldest ones in a situation of conflict
+var generation_number = -1 #measures the number of generation to kill the oldest ones in a situation of conflict
 var energy_level = INITIAL_ENERGY
 var energy_per_bite = 10
 
@@ -19,7 +19,7 @@ var energy_per_bite = 10
 #also, mind that you use the var before initializing it (before
 #attributing a value to it) 
 
-onready var energy_level_bar = $Energy_level_bar
+onready var Energy_Level_Bar = $EnergyLevel
 
 const STATE_CHILL = 0
 const STATE_MOVING = 1
@@ -49,10 +49,8 @@ func substate_get():
 #food_sources
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if generation_number >0:
-		generation_number+=1
-	$EnergyLossTimer.start()	
-	pass # Replace with function body.
+	generation_number+=1
+	$EnergyLossTimer.start()
 
 func _input(event):
 	if substate==STATE_SELECTED:
@@ -106,8 +104,7 @@ func finish_eating():
 	$SaturationTimer.start() 
 
 func update_energy_bar(value: int):
-	energy_level_bar.value=value
-	pass
+	Energy_Level_Bar.value=value
 		
 func _on_NutrientInteraction_body_entered(body: PhysicsBody2D) -> void:
 	print("[Bacteria] Body entered event: ")
@@ -147,10 +144,10 @@ func _on_MealTimer_timeout() -> void:
 			print(str("received: ", real_morsel))	
 			energy_level += real_morsel
 			$Energy.text = str(energy_level)
-			
+			update_energy_bar(energy_level)
 			if state == STATE_FULL:
 				finish_eating()
-			#update_energy_bar(energy_level)
+
 
 func _on_SaturationTimer_timeout() -> void:
 	state_set(STATE_CHILL)
@@ -158,6 +155,10 @@ func _on_SaturationTimer_timeout() -> void:
 	$EnergyLossTimer.start()
 
 func _on_EnergyLossTimer_timeout() -> void:
-	energy_level -= ENERGY_LOS_PER_PERIOD_CHILL
+	if state==STATE_CHILL:
+		energy_level -= ENERGY_LOS_PER_PERIOD_CHILL
+	if state==STATE_MOVING:
+		energy_level -= ENERGY_LOS_PER_PERIOD_MOVE
 	$Energy.text = str(energy_level)
+	update_energy_bar(energy_level)
 	
