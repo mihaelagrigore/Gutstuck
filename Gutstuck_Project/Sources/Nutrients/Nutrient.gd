@@ -90,4 +90,4 @@ func _on_BacteriaInteraction_body_exited(body: PhysicsBody2D) -> void:
 			print('[Nutrient] removing bacteria') 
 			colliding_bacteria.erase(body) 
 		if colliding_bacteria.empty():
-			state = STATE_CHILL #no longer under attacl
+			state = STATE_CHILL #no longer under attack
