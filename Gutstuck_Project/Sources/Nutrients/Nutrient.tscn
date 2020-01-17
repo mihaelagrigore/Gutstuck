@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Sources/Nutrients/Nutrient.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Textures/Life_Bar_Under.png" type="Texture" id=2]
@@ -15,6 +15,15 @@ height = 35.3231
 [sub_resource type="DynamicFont" id=3]
 size = 15
 font_data = ExtResource( 4 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 45.3
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+angular_velocity = -0.02
+orbit_velocity = -1000.0
+orbit_velocity_random = 0.0
 
 [node name="Nutrient" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -48,5 +57,13 @@ margin_bottom = -41.0042
 custom_fonts/font = SubResource( 3 )
 text = "100"
 align = 1
+
+[node name="Explosion" type="Particles2D" parent="."]
+process_material = SubResource( 4 )
+
+[node name="ExplosionTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 [connection signal="body_entered" from="BacteriaInteraction" to="." method="_on_BacteriaInteraction_body_entered"]
 [connection signal="body_exited" from="BacteriaInteraction" to="." method="_on_BacteriaInteraction_body_exited"]
+[connection signal="timeout" from="ExplosionTimer" to="." method="_on_ExplosionTimer_timeout"]
