@@ -60,6 +60,7 @@ func CreateBox():
 		colorRect.set_begin(Vector2(min(initialPos.x, currentPos.x), min(initialPos.y, currentPos.y)))
 		colorRect.set_end(Vector2(max(initialPos.x, currentPos.x), max(initialPos.y, currentPos.y)))
 	elif(Input.is_action_just_released("Main_Command")):
+		print(str('is_action_just_released: ', currentPos))
 		SelectObjects()
 		colorRect.set_begin(Vector2(0,0))
 		colorRect.set_end(Vector2(0,0))
@@ -77,15 +78,20 @@ func Action():
 # https://www.youtube.com/watch?v=JFQXI3to0b4
 func SelectObjects():
 	var selfRect = colorRect.get_rect()
-	var temp_bacterias_selected = []
-	for bacteria in get_tree().get_nodes_in_group("Bacteria"):
-		if(selfRect.has_point(bacteria.position)):
-			temp_bacterias_selected.push_back(bacteria)
-	if !temp_bacterias_selected.empty():
-		for bacteria in temp_bacterias_selected:
-			bacteria.substate_set(bacteria.STATE_SELECTED)
-			bacterias.push_back(bacteria)
-
+	var selfRectSize = selfRect.size.x + selfRect.size.y
+	if (!selfRectSize): #it was a single click
+		#check if the mouse click position overlap with any bacteria's body
+		print("single click")
+	else: #it was a mouse dragging
+		var temp_bacterias_selected = []
+		for bacteria in get_tree().get_nodes_in_group("Bacteria"):
+			if(selfRect.has_point(bacteria.position)):
+				temp_bacterias_selected.push_back(bacteria)
+		if !temp_bacterias_selected.empty():
+			for bacteria in temp_bacterias_selected:
+				bacteria.substate_set(bacteria.STATE_SELECTED)
+				bacterias.push_back(bacteria)
+				
 func DeselectObjects():
 	print(str(bacterias.size(), " bacteria"))
 	for bacteria in bacterias:

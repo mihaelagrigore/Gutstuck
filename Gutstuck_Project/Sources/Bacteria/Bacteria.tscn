@@ -6,7 +6,7 @@
 [ext_resource path="res://Assets/Textures/Life_Bar.png" type="Texture" id=4]
 [ext_resource path="res://Assets/Fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=5]
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=1]
 resource_name = "Bacterium_movement"
 loop = true
 tracks/0/type = "value"
@@ -22,13 +22,13 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="CircleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=2]
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 60
 font_data = ExtResource( 5 )
 
-[sub_resource type="CapsuleShape2D" id=3]
+[sub_resource type="CapsuleShape2D" id=4]
 radius = 30.8291
 height = 0.637798
 
@@ -36,6 +36,7 @@ height = 0.637798
 "Bacteria",
 ]]
 scale = Vector2( 0.2, 0.2 )
+input_pickable = true
 script = ExtResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -44,10 +45,10 @@ hframes = 8
 frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
-anims/Bacterium_movement = SubResource( 4 )
+anims/Bacterium_movement = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="EnergyLevel" type="TextureProgress" parent="."]
 margin_left = -72.374
@@ -64,13 +65,13 @@ margin_left = -44.8283
 margin_top = -142.391
 margin_right = 41.1717
 margin_bottom = -69.3908
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "50"
 
 [node name="NutrientInteraction" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NutrientInteraction"]
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="MealTimer" type="Timer" parent="."]
 
