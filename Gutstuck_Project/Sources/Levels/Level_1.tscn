@@ -31,13 +31,15 @@ tracks/0/keys = {
 
 [node name="Background" type="Sprite" parent="."]
 position = Vector2( -2.38419e-007, -9.53674e-007 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 1 )
 
 [node name="Epithelial cell" type="Sprite" parent="."]
 position = Vector2( -3.11894, -0.954689 )
 scale = Vector2( 0.994608, 0.994608 )
 texture = ExtResource( 2 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Epithelial cell"]
+polygon = PoolVector2Array( -154.834, -278.038, -127.809, -265.754, -119.62, -246.919, -128.628, -215.8, -125.353, -185.5, -111.431, -167.484, -97.5093, -160.932, -81.1309, -167.484, -68.8471, -189.594, -68.8471, -209.249, -79.4931, -231.359, -79.4931, -231.359, -72.9417, -256.746, -37.728, -274.762, 0.76129, -279.676, 26.9668, -277.219, -76.2174, -350.103, -368.572, -319.803, -500.419, -237.092, -404.605, -221.532, -376.762, -205.154, -366.935, -173.216, -309.61, -184.681, -338.272, -207.611, -344.824, -238.73, -336.635, -251.014, -280.948, -272.306 )
 
 [node name="Asset_background" type="Sprite" parent="."]
 visible = false
