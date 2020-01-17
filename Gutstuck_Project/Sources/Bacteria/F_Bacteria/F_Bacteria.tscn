@@ -4,7 +4,8 @@
 [ext_resource path="res://Assets/Textures/Asset_bacteria_SF_animation20px.png" type="Texture" id=2]
 
 [node name="Bacteria" index="0" instance=ExtResource( 1 )]
-modulate = Color( 0.372549, 1, 0.337255, 1 )
 
 [node name="Sprite" parent="." index="0"]
+scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
+frame = 5
