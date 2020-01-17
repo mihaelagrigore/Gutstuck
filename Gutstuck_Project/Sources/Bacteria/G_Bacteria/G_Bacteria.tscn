@@ -6,4 +6,3 @@
 [node name="Bacteria" instance=ExtResource( 1 )]
 modulate = Color( 0.94902, 0.113725, 0.113725, 1 )
 script = ExtResource( 2 )
-

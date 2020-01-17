@@ -79,7 +79,7 @@ func _physics_process(delta):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if energy_level==0:
+	if energy_level<=0:
 		queue_free() # Removes the node from the scene and frees it when it becomes safe to do so.
 	# Evolution of energy quantity
 	#TODO: implement energy loss as a function of time
