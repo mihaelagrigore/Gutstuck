@@ -29,10 +29,10 @@ texture = ExtResource( 2 )
 shape = SubResource( 1 )
 
 [node name="EnergyLevel" type="TextureProgress" parent="."]
-margin_left = -72.1671
-margin_top = -70.2338
-margin_right = 117.833
-margin_bottom = -25.2338
+margin_left = -72.374
+margin_top = -65.7149
+margin_right = 117.626
+margin_bottom = -20.7149
 rect_scale = Vector2( 0.76, 0.52 )
 value = 50.0
 texture_under = ExtResource( 3 )
