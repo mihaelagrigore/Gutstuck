@@ -5,6 +5,7 @@ class_name Nutrient
 const STATE_CHILL = 0		#nothing happening
 const STATE_ATTACKED = 1	#someone is feeding on me
 const STATE_DEPLETED = 2	#time to gracefully die
+const STATE_EXPLODING = 3	#time to gracefully die
 const INITIAL_ENERGY = 100	#my energy level when I spawn
 
 #what am I doing at the moment ?
@@ -16,6 +17,9 @@ var state = STATE_CHILL setget state_set, state_get
 var energy = INITIAL_ENERGY setget energy_set, energy_get
 
 var colliding_bacteria = [] 
+
+func _timeout():
+	print("Timed out!")
 
 func state_set(value):
 	state = value
@@ -33,15 +37,16 @@ func energy_get():
 func _ready():
 	state = STATE_CHILL
 	energy = INITIAL_ENERGY
+	$Explosion.hide()
 
 func _process(delta):
-	if state == STATE_ATTACKED:
-		if energy == 0:
-			state = STATE_DEPLETED
-			colliding_bacteria.clear()
-			deactivate()
-			#TODO: explode into pieces
-
+	if state == STATE_DEPLETED:
+		colliding_bacteria.clear()
+		get_node("CollisionShape2D").disabled = true
+		print("draw explosion")
+		state = STATE_EXPLODING
+		$Explosion.show()
+		$ExplosionTimer.start()
 
 # Bacteria feeding on me will call this function
 # Bacteria tries to bite an amount of energy = bite_size
@@ -91,3 +96,10 @@ func _on_BacteriaInteraction_body_exited(body: PhysicsBody2D) -> void:
 			colliding_bacteria.erase(body) 
 		if colliding_bacteria.empty():
 			state = STATE_CHILL #no longer under attack
+
+func _on_ExplosionTimer_timeout() -> void:
+	print("hide particle")
+	$Explosion.hide()
+	queue_free()
+	deactivate()
+			

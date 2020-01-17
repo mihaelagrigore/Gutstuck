@@ -31,7 +31,6 @@ tracks/0/keys = {
 
 [node name="Background" type="Sprite" parent="."]
 position = Vector2( -2.38419e-007, -9.53674e-007 )
-scale = Vector2( 1, 1 )
 texture = ExtResource( 1 )
 
 [node name="Epithelial cell" type="Sprite" parent="."]

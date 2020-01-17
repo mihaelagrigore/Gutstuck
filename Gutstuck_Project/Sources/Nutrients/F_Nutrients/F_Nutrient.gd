@@ -10,16 +10,16 @@ func _physics_process(delta: float) -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if (state == STATE_DEPLETED):
+	#if (state == STATE_DEPLETED):
 		#to prevent anyone from colliding into me 
 		#until I completely die
-		get_node("CollisionShape2D").disabled = true 
+		#get_node("CollisionShape2D").disabled = true 
 		
 		#TODO: replace Sprite with a 
 		#Particle2D explosion effect
 				
 		#last thing I do: I delete myelf from memory
-		queue_free()
+		#queue_free()
 		# wait, is it possible that another bacteria was waiting in line
 		# to feed on me and now will get smth like a NULL pointer exception ?
-#
+	pass
