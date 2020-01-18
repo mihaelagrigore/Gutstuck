@@ -3,5 +3,6 @@
 [ext_resource path="res://Sources/Bacteria/Manager_Bacteria.gd" type="Script" id=1]
 
 [node name="Bacteria_Manager" type="Node2D"]
+pause_mode = 1
 script = ExtResource( 1 )
 

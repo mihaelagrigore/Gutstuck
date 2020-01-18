@@ -1,11 +1,8 @@
-extends Node
+extends Control
 
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
-onready var camera = get_node("Camera2D")
-onready var animationplayer = get_tree().get_root().get_node("Level_1/AnimationPlayer")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,8 +13,5 @@ func _ready():
 #	pass
 
 
-func _on_Pause_Button_pressed():
-	start_pause_mode()
-
-func start_pause_mode():
-	pass
+func _on_MenuButton_pressed(extra_arg_0):
+	pass # Replace with function body.
