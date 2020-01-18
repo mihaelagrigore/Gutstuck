@@ -23,6 +23,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="CircleShape2D" id=2]
+radius = 22.9355
 
 [sub_resource type="DynamicFont" id=3]
 size = 60
