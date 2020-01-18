@@ -101,7 +101,8 @@ func finish_eating():
 	#it feels natural to have some inertia when we are full
 	#when the SaturationTimer is off, I can start loosing energy
 	#and start eating again
-	$SaturationTimer.start() 
+	$SaturationTimer.start()
+	state=STATE_REPLICATING
 	
 func prematurely_finish_eating():
 	print("[Bacteria] abandoning food...")
@@ -148,9 +149,9 @@ func _on_MealTimer_timeout() -> void:
 			if energy_level + energy_per_bite >= MAX_ENERGY:
 				morsel =  MAX_ENERGY - energy_level
 				state = STATE_FULL
-			print(str("requested: ", morsel))	
+			print(str("requested: ", morsel))
 			var real_morsel = nutrient.bite_me(morsel)
-			print(str("received: ", real_morsel))	
+			print(str("received: ", real_morsel))
 			energy_level += real_morsel
 			$Energy.text = str(energy_level)
 			update_energy_bar(energy_level)
