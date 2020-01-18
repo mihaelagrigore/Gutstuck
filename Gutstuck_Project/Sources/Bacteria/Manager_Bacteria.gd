@@ -29,6 +29,7 @@ func _ready():
 
 func _process(delta):
 	var Group_F_Bacteria=get_tree().get_nodes_in_group("F_Bacteria");
+	print(str("found: ", Group_F_Bacteria));
 	var Group_G_Bacteria=get_tree().get_nodes_in_group("G_Bacteria");
 	var Group_P_Bacteria=get_tree().get_nodes_in_group("P_Bacteria");
 	#if bacteria_state is STATE_REPLICATING, duplicate node
