@@ -16,14 +16,17 @@ func _ready():
 	for i in range(msk_range):
 		var temp_bacteria = F_Bacteria.instance()
 		add_child(temp_bacteria)
+#		temp_bacteria.connect("die", self, "_on_die")
 		temp_bacteria.position = Vector2(rng.randf_range(-300.0, 300.0),rng.randf_range(-300.0, 300.0))
 	for i in range(msk_range):
 		var temp_bacteria = G_Bacteria.instance()
 		add_child(temp_bacteria)
+#		temp_bacteria.connect("die", self, "_on_die")
 		temp_bacteria.position = Vector2(rng.randf_range(-300.0, 300.0),rng.randf_range(-300.0, 300.0))
 	for i in range(msk_range):
 		var temp_bacteria = P_Bacteria.instance()
 		add_child(temp_bacteria)
+#		temp_bacteria.connect("die", self, "_on_die")
 		temp_bacteria.position = Vector2(rng.randf_range(-300.0, 300.0),rng.randf_range(-300.0, 300.0))
 
 
