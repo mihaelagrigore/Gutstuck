@@ -8,13 +8,13 @@
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 9.32208
 
-[sub_resource type="CapsuleShape2D" id=2]
-radius = 11.0275
-height = 35.3231
-
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 15
 font_data = ExtResource( 4 )
+
+[sub_resource type="CapsuleShape2D" id=3]
+radius = 11.0275
+height = 35.3231
 
 [sub_resource type="ParticlesMaterial" id=4]
 emission_shape = 1
@@ -28,11 +28,11 @@ orbit_velocity_random = 0.0
 [node name="Nutrient" type="KinematicBody2D"]
 script = ExtResource( 1 )
 
+[node name="Sprite" type="Sprite" parent="."]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -1.52588e-005, 0.0592499 )
 shape = SubResource( 1 )
-
-[node name="Sprite" type="Sprite" parent="."]
 
 [node name="TextureProgress" type="TextureProgress" parent="."]
 margin_left = -13.1532
@@ -43,20 +43,20 @@ rect_scale = Vector2( 0.15, 0.1 )
 texture_under = ExtResource( 2 )
 texture_progress = ExtResource( 3 )
 
-[node name="BacteriaInteraction" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BacteriaInteraction"]
-position = Vector2( 0.470398, 0.529633 )
-shape = SubResource( 2 )
-
 [node name="Energy" type="Label" parent="."]
 margin_left = -15.8025
 margin_top = -61.0042
 margin_right = 19.1975
 margin_bottom = -41.0042
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "100"
 align = 1
+
+[node name="BacteriaInteraction" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BacteriaInteraction"]
+position = Vector2( 0.470398, 0.529633 )
+shape = SubResource( 3 )
 
 [node name="Explosion" type="Particles2D" parent="."]
 process_material = SubResource( 4 )
