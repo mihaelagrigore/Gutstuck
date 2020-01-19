@@ -1,13 +1,23 @@
 extends Node
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var F_Nutrient = load("res://Sources/Nutrients/F_Nutrients/F_Nutrient.tscn")
+var P_Nutrient = load("res://Sources/Nutrients/F_Nutrients/F_Nutrient.tscn")
 
-# Called when the node enters the scene tree for the first time.
+var msk_range = 5
+
 func _ready():
-	pass # Replace with function body.
+	var rng = RandomNumberGenerator.new()
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	for i in range(msk_range):
+		var temp_nutrients = F_Nutrient.instance()
+		add_child(temp_nutrients)
+		temp_nutrients.position = Vector2(rng.randf_range(-300.0, 300.0),rng.randf_range(-300.0, 300.0))
+	for i in range(msk_range):
+		var temp_nutrients = P_Nutrient.instance()
+		add_child(temp_nutrients)
+		temp_nutrients.position = Vector2(rng.randf_range(-300.0, 300.0),rng.randf_range(-300.0, 300.0))
+	
+func _process(delta):
+	var Group_F_Nutrients=get_tree().get_nodes_in_group("F_Nutrients");
+	var Group_P_Nutrients=get_tree().get_nodes_in_group("P_Nutrients");
+	#if bacteria_state is STATE_REPLICATING, duplicate node
