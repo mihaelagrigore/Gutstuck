@@ -2,7 +2,7 @@ extends KinematicBody2D
 class_name Bacteria
 
 const INITIAL_ENERGY=50
-const ENERGY_LOS_PER_PERIOD_CHILL = 1
+const ENERGY_LOS_PER_PERIOD_CHILL = 20 #1
 const ENERGY_LOS_PER_PERIOD_MOVE = 20
 const MAX_ENERGY=100
 
@@ -27,7 +27,7 @@ const STATE_EATING = 2
 const STATE_FULL = 3
 const STATE_REPLICATING = 4
 
-signal die
+signal die(victim)
 
 const STATE_SELECTED = 1
 const STATE_UNSELECTED = 2
@@ -82,7 +82,7 @@ func _physics_process(delta):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if energy_level<=0:
-		emit_signal("die")
+		emit_signal("die", self)
 		queue_free() # Removes the node from the scene and frees it when it becomes safe to do so.
 	# Evolution of energy quantity
 	#TODO: implement energy loss as a function of time

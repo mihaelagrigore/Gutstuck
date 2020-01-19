@@ -89,7 +89,7 @@ func SelectObjects():
 				temp_bacterias_selected.push_back(bacteria)
 		if !temp_bacterias_selected.empty():
 			for bacteria in temp_bacterias_selected:
-				bacteria.connect("die", self, "_on_die")
+				#bacteria.connect("die", self, "_on_die")
 				bacteria.substate_set(bacteria.STATE_SELECTED)
 				bacterias.push_back(bacteria)
 				
@@ -99,9 +99,11 @@ func DeselectObjects():
 		bacteria.substate_set(bacteria.STATE_UNSELECTED)
 	bacterias.clear()
 
-func _on_die():
-	
-	pass
+func _on_die(victim):
+	print("die signal")
+	if (bacterias.find(victim) >=0):
+		print("found the victim. let's erase it")
+		bacterias.erase(victim)
 
 func SendBacterias(position):
 	for bacteria in bacterias:

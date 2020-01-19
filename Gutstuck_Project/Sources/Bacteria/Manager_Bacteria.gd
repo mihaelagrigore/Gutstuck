@@ -15,6 +15,10 @@ func _ready():
 
 	for i in range(msk_range):
 		var temp_bacteria = F_Bacteria.instance()
+		#temp_bacteria.
+		var arr = get_tree().get_nodes_in_group("Input_Manager")
+		var inputManager = arr[0]
+		temp_bacteria.connect( "die", inputManager, "_on_die" )
 		add_child(temp_bacteria)
 #		temp_bacteria.connect("die", self, "_on_die")
 		temp_bacteria.position = Vector2(rng.randf_range(-300.0, 300.0),rng.randf_range(-300.0, 300.0))

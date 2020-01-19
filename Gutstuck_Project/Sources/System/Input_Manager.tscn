@@ -2,7 +2,9 @@
 
 [ext_resource path="res://Sources/System/Input_Manager.gd" type="Script" id=1]
 
-[node name="Input_Manager" type="Control"]
+[node name="Input_Manager" type="Control" groups=[
+"Input_Manager",
+]]
 pause_mode = 1
 anchor_right = 1.0
 anchor_bottom = 1.0
