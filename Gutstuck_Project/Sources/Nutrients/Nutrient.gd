@@ -8,6 +8,9 @@ const STATE_DEPLETED = 2	#time to gracefully die
 const STATE_EXPLODING = 3	#time to gracefully die
 const INITIAL_ENERGY = 100	#my energy level when I spawn
 
+#Declaring the health bar
+onready var Energy_Level_Bar = $EnergyLevel
+
 #what am I doing at the moment ?
 #when I spawn, I am just chillin'
 var state = STATE_CHILL setget state_set, state_get
@@ -17,6 +20,9 @@ var state = STATE_CHILL setget state_set, state_get
 var energy = INITIAL_ENERGY setget energy_set, energy_get
 
 var colliding_bacteria = [] 
+
+func update_energy_bar(value: int):
+	Energy_Level_Bar.value=value
 
 func _timeout():
 	print("Timed out!")
@@ -38,6 +44,7 @@ func _ready():
 	state = STATE_CHILL
 	energy = INITIAL_ENERGY
 	$Explosion.hide()
+	update_energy_bar(energy)
 
 func _process(delta):
 	if state == STATE_DEPLETED:
@@ -60,7 +67,7 @@ func bite_me(bite_size: int) -> int:
 	else:
 		morsel = energy
 		energy = 0
-
+	update_energy_bar(energy)
 	$Energy.text = str(energy)
 
 	#if my energy level is 0, I change my state. 
