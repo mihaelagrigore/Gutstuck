@@ -5,4 +5,3 @@
 [node name="Bacteria_Manager" type="Node2D"]
 pause_mode = 1
 script = ExtResource( 1 )
-
