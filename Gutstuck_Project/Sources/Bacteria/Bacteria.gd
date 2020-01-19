@@ -51,6 +51,9 @@ func substate_get():
 #food_sources
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	#var inputManager = load("res://Sources/System/Input_Manager.tscn")
+	#connect("die", inputManager, "_on_die" )
+	
 	generation_number+=1
 	$EnergyLossTimer.start()
 
