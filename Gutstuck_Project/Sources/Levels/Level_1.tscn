@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Sources/Levels/Level_1.gd" type="Script" id=1]
 [ext_resource path="res://Sources/System/Menu.tscn" type="PackedScene" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Sources/Bacteria/Bacteria_Manager.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Sources/Nutrients/F_Nutrients/F_Nutrient.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Sources/System/Game_Manager.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Sources/Nutrients/Manager_Nutrient.tscn" type="PackedScene" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "Camera_to_top"
@@ -111,4 +112,6 @@ margin_top = 131.765
 margin_right = 596.303
 margin_bottom = 151.765
 text = "Start playing"
+
+[node name="Manager_Nutrients" parent="." instance=ExtResource( 10 )]
 [connection signal="pressed" from="Text_introduction/Button" to="." method="_on_Button_pressed"]
