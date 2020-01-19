@@ -12,8 +12,10 @@ var msk_range = 10
 
 func _ready():
 	var rng = RandomNumberGenerator.new()
+	rng.randomize()
 
 	for i in range(msk_range):
+		rng.randomize()
 		var temp_bacteria = F_Bacteria.instance()
 		add_child(temp_bacteria)
 		temp_bacteria.position = Vector2(rng.randf_range(-300.0, 300.0),rng.randf_range(-300.0, 300.0))
@@ -21,10 +23,12 @@ func _ready():
 		#var inputManager = arr[0]
 		#temp_bacteria.connect( "die", inputManager, "_on_die" )
 	for i in range(msk_range):
+		rng.randomize()
 		var temp_bacteria = G_Bacteria.instance()
 		add_child(temp_bacteria)
 		temp_bacteria.position = Vector2(rng.randf_range(-300.0, 300.0),rng.randf_range(-300.0, 300.0))
 	for i in range(msk_range):
+		rng.randomize()
 		var temp_bacteria = P_Bacteria.instance()
 		add_child(temp_bacteria)
 		temp_bacteria.position = Vector2(rng.randf_range(-300.0, 300.0),rng.randf_range(-300.0, 300.0))
