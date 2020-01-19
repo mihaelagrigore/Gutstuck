@@ -12,11 +12,19 @@ func _ready():
 	for i in range(msk_range):
 		var temp_nutrients = F_Nutrient.instance()
 		add_child(temp_nutrients)
-		temp_nutrients.position = Vector2(rng.randf_range(-extra, extra),rng.randf_range(-extra, extra))
+		var x = rng.randf_range(-extra, extra)
+		var y = rng.randf_range(-extra, extra)
+		print(str("generate at position: ",x,", ", y))
+		#temp_nutrients.position = Vector2(rng.randf_range(-extra, extra),rng.randf_range(-extra, extra))
+		temp_nutrients.position = Vector2(x,y)
 	for i in range(msk_range):
 		var temp_nutrients = P_Nutrient.instance()
 		add_child(temp_nutrients)
-		temp_nutrients.position = Vector2(rng.randf_range(-extra, extra),rng.randf_range(-extra, extra))
+		var x = rng.randf_range(-extra, extra)
+		var y = rng.randf_range(-extra, extra)
+		print(str("generate at position: ",x,", ", y))
+		#temp_nutrients.position = Vector2(rng.randf_range(-extra, extra),rng.randf_range(-extra, extra))
+		temp_nutrients.position = Vector2(x,y)
 	
 func _process(delta):
 	var Group_F_Nutrients=get_tree().get_nodes_in_group("F_Nutrients");

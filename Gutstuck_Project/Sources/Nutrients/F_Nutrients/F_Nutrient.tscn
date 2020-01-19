@@ -5,7 +5,7 @@
 [ext_resource path="res://Assets/Textures/Asset_fiber.png" type="Texture" id=3]
 
 [node name="F_Nutrient" groups=[
-"Nutrient",
+"F_Nutrient",
 ] instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
