@@ -34,7 +34,7 @@ script = ExtResource( 1 )
 position = Vector2( -1.52588e-005, 0.0592499 )
 shape = SubResource( 1 )
 
-[node name="TextureProgress" type="TextureProgress" parent="."]
+[node name="EnergyLevel" type="TextureProgress" parent="."]
 margin_left = -13.1532
 margin_top = -40.5749
 margin_right = 176.847
