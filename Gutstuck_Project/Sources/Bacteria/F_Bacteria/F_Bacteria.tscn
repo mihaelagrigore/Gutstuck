@@ -8,4 +8,17 @@
 [node name="Sprite" parent="." index="0"]
 scale = Vector2( 5, 5 )
 texture = ExtResource( 2 )
-frame = 6
+frame = 4
+
+[node name="AnimationPlayer" parent="Sprite" index="0"]
+autoplay = "Bacterium_movement"
+
+[node name="CollisionShape2D" parent="." index="1"]
+visible = false
+
+[node name="EnergyLevel" parent="." index="2"]
+margin_left = -72.6568
+margin_right = 117.343
+
+[node name="CollisionShape2D" parent="NutrientInteraction" index="0"]
+visible = false
