@@ -63,7 +63,7 @@ margin_right = 117.626
 margin_bottom = -20.7149
 rect_scale = Vector2( 0.76, 0.52 )
 value = 50.0
-texture_under = ExtResource( 3 )
+texture_over = ExtResource( 3 )
 texture_progress = ExtResource( 4 )
 
 [node name="Energy" type="Label" parent="."]
