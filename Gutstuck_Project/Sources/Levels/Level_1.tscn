@@ -34,6 +34,7 @@ loop = true
 script = ExtResource( 1 )
 
 [node name="Game_Manager" parent="." instance=ExtResource( 2 )]
+editor/display_folded = true
 
 [node name="Menu" parent="Game_Manager" instance=ExtResource( 3 )]
 margin_left = 60.231
