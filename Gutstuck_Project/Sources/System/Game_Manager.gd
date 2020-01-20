@@ -9,7 +9,13 @@ onready var animationplayer = get_tree().get_root().get_node("Level_1/AnimationP
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	print("sequence 1")
+	get_node("Bacteria_Manager").input_manager = get_node("Input_Manager")
+	get_node("Bacteria_Manager").Spawn_Location_Container = get_node("Spawn_Location_Container")
+	get_node("Manager_Nutrients").Spawn_Nutrient = get_node("Spawn_Nutrient")
+	get_node("Bacteria_Manager").personal_init()
+	get_node("Manager_Nutrients").personal_init()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

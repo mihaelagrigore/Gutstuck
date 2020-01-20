@@ -28,6 +28,7 @@ const STATE_FULL = 3
 const STATE_REPLICATING = 4
 
 signal die(victim)
+signal duplicate(mother)
 
 const STATE_SELECTED = 1
 const STATE_UNSELECTED = 2
@@ -108,7 +109,8 @@ func finish_eating():
 	#when the SaturationTimer is off, I can start loosing energy
 	#and start eating again
 	$SaturationTimer.start()
-	state=STATE_REPLICATING
+	state = STATE_REPLICATING
+	emit_signal("duplicate", self)
 	
 func prematurely_finish_eating():
 	print("[Bacteria] abandoning food...")
@@ -118,30 +120,8 @@ func prematurely_finish_eating():
 	#and start eating again
 	$EnergyLossTimer.start() 
 	
-
 func update_energy_bar(value: int):
 	Energy_Level_Bar.value=value
-		
-func _on_NutrientInteraction_body_entered(body: PhysicsBody2D) -> void:
-	print("[Bacteria] Body entered event: ")
-	print(body.get_class())
-	if body.is_in_group("Nutrient"): #is the colliding entity a bacteria ?
-		print('[Bacteria] appending nutrient') 
-		colliding_nutrients.append(body)		
-		if state != STATE_EATING:
-			$EnergyLossTimer.stop()
-			state_set(STATE_EATING)
-			$MealTimer.start()
-
-func _on_NutrientInteraction_body_exited(body: PhysicsBody2D) -> void:
-	print("[Bacteria] Body exited event")
-	if body.is_in_group("Nutrient"):
-		#remove the bacteria from my list
-		if colliding_nutrients.count(body):
-			print('[Bacteria] removing nutrient') 
-			colliding_nutrients.erase(body) 
-		if (state!=STATE_FULL) && colliding_nutrients.empty():
-			prematurely_finish_eating()
 	
 func _on_MealTimer_timeout() -> void:
 	# we should always be in STATE_EATING when this timer goes off
@@ -163,7 +143,6 @@ func _on_MealTimer_timeout() -> void:
 			update_energy_bar(energy_level)
 			if state == STATE_FULL:
 				finish_eating()
-
 
 func _on_SaturationTimer_timeout() -> void:
 	state_set(STATE_CHILL)

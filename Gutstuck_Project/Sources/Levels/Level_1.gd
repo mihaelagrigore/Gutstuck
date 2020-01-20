@@ -3,7 +3,7 @@ extends Node2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-onready var text_introduction = get_node("Text_introduction")
+onready var text_introduction = get_node("Game_Manager/Text_introduction")
 
 # Called when the node enters the scene tree for the first time.
 func _enter_tree():

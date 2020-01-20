@@ -10,28 +10,48 @@ var P_Bacteria = load("res://Sources/Bacteria/P_Bacteria/P_Bacteria.tscn")
 
 var msk_range = 10
 
+var spawn_position_size = 100
+
+var input_manager
+var Spawn_Location_Container
+
 func _ready():
+	pass
+
+func personal_init():
 	var rng = RandomNumberGenerator.new()
 	rng.randomize()
 
 	for i in range(msk_range):
 		rng.randomize()
 		var temp_bacteria = F_Bacteria.instance()
+		var temp_spawn_location_index = rng.randi_range(0, Spawn_Location_Container.get_children().size()-1)
+		var temp_spawn_location_object = Spawn_Location_Container.get_child(temp_spawn_location_index)
 		add_child(temp_bacteria)
-		temp_bacteria.position = Vector2(rng.randf_range(-300.0, 300.0),rng.randf_range(-300.0, 300.0))
-		#var arr = get_tree().get_nodes_in_group("Input_Manager")
-		#var inputManager = arr[0]
-		#temp_bacteria.connect( "die", inputManager, "_on_die" )
+		temp_bacteria.position = Vector2(rng.randf_range(temp_spawn_location_object.position.x, temp_spawn_location_object.position.x + spawn_position_size), rng.randf_range(temp_spawn_location_object.position.y, temp_spawn_location_object.position.y + spawn_position_size))
+		
+		temp_bacteria.connect( "duplicate", self, "_on_bacteria_division" )
+		temp_bacteria.connect( "die", input_manager, "_on_die" )
 	for i in range(msk_range):
 		rng.randomize()
 		var temp_bacteria = G_Bacteria.instance()
+		var temp_spawn_location_index = rng.randi_range(0, Spawn_Location_Container.get_children().size()-1)
+		var temp_spawn_location_object = Spawn_Location_Container.get_child(temp_spawn_location_index)
 		add_child(temp_bacteria)
-		temp_bacteria.position = Vector2(rng.randf_range(-300.0, 300.0),rng.randf_range(-300.0, 300.0))
+		temp_bacteria.position = Vector2(rng.randf_range(temp_spawn_location_object.position.x, temp_spawn_location_object.position.x + spawn_position_size), rng.randf_range(temp_spawn_location_object.position.y, temp_spawn_location_object.position.y + spawn_position_size))
+		
+		temp_bacteria.connect( "duplicate", self, "_on_bacteria_division" )
+		temp_bacteria.connect( "die", input_manager, "_on_die" )
 	for i in range(msk_range):
 		rng.randomize()
 		var temp_bacteria = P_Bacteria.instance()
+		var temp_spawn_location_index = rng.randi_range(0, Spawn_Location_Container.get_children().size()-1)
+		var temp_spawn_location_object = Spawn_Location_Container.get_child(temp_spawn_location_index)
 		add_child(temp_bacteria)
-		temp_bacteria.position = Vector2(rng.randf_range(-300.0, 300.0),rng.randf_range(-300.0, 300.0))
+		temp_bacteria.position = Vector2(rng.randf_range(temp_spawn_location_object.position.x, temp_spawn_location_object.position.x + spawn_position_size), rng.randf_range(temp_spawn_location_object.position.y, temp_spawn_location_object.position.y + spawn_position_size))
+		
+		temp_bacteria.connect( "duplicate", self, "_on_bacteria_division" )
+		temp_bacteria.connect( "die", input_manager, "_on_die" )
 
 
 func _process(delta):
@@ -47,3 +67,9 @@ func _process(delta):
 			add_child(temp_bacteria)
 			temp_bacteria.position = temp_position
 	pass
+	
+func _on_bacteria_division(mother: Bacteria):
+	var motherPosition = mother.position
+	print(str("mother position: ", motherPosition))
+	pass
+	
