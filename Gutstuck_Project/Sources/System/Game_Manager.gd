@@ -13,6 +13,7 @@ func _ready():
 	get_node("Bacteria_Manager").input_manager = get_node("Input_Manager")
 	get_node("Bacteria_Manager").Spawn_Location_Container = get_node("Spawn_Location_Container")
 	get_node("Manager_Nutrients").Spawn_Nutrient = get_node("Spawn_Nutrient")
+	get_node("Input_Manager").Bacteria_Manager_Reference = get_node("Bacteria_Manager")
 	get_node("Bacteria_Manager").personal_init()
 	get_node("Manager_Nutrients").personal_init()
 

@@ -20,7 +20,7 @@ var rightClicPos = Vector2(0,0)
 export var box_color = Color(1,1,1,1)
 
 var bacterias = []
-
+var Bacteria_Manager_Reference
 
 var camera
 var selectableObjects = []
@@ -42,11 +42,9 @@ func _ready():
 	colorRect.color = box_color
 	bacteria_select_timer = get_tree().create_timer(0.0)
 
-
 func _process(delta): # problem of "input fired twice" solve thanks to https://github.com/godotengine/godot/issues/24944
 	CreateBox()
 	Action()
-
 
 func CreateBox():
 	if(Input.is_action_just_pressed("Main_Command")):
@@ -71,6 +69,24 @@ func CreateBox():
 		colorRect.set_end(Vector2(0,0))
 		initialPos = Vector2(0,0)
 		currentPos = Vector2(0,0)
+	elif (Input.is_key_pressed(KEY_1)): #press 1 to select ALL fiber bacteria
+		bacterias.clear()
+		var all_bacteria = Bacteria_Manager_Reference.get_children()	
+		for bacteria in all_bacteria:
+			if bacteria.is_in_group("F_Bacteria"):
+				bacterias.push_back(bacteria)
+	elif (Input.is_key_pressed(KEY_2)): #press 2 to select ALL protein bacteria
+		bacterias.clear()
+		var all_bacteria = Bacteria_Manager_Reference.get_children()	
+		for bacteria in all_bacteria:
+			if bacteria.is_in_group("P_Bacteria"):
+				bacterias.push_back(bacteria)
+	elif (Input.is_key_pressed(KEY_3)): #press 3 to select ALL general bacteria
+		bacterias.clear()
+		var all_bacteria = Bacteria_Manager_Reference.get_children()	
+		for bacteria in all_bacteria:
+			if bacteria.is_in_group("G_Bacteria"):
+				bacterias.push_back(bacteria)
 
 
 func Action():
