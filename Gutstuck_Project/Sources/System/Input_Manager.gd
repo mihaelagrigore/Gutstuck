@@ -116,6 +116,19 @@ func SendBacterias(position):
 		bacteria.target = position
 		bacteria.state_set(bacteria.STATE_MOVING) 
 		#emit_signal("move_bacteria")
+
+#check if bacteria is part of a selected group of bacteria
+func is_selected(bacteria) -> bool:
+	print("Check if bacteria is selected")
+	if (bacterias.find(bacteria) >=0):
+		print("Mother bacteria IS selected")
+		return true
+	else:
+		return false	
+
+#add a new bacteria to the group of selected bacteria
+func push_bacteria(bacteria):
+	bacterias.push_back(bacteria)
 		
 func _on_die(victim):
 	print("Somebody died")

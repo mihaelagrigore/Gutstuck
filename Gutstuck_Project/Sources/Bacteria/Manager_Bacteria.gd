@@ -56,21 +56,21 @@ func choose_spawn_location(temp_bacteria: Bacteria, position: Vector2):
 
 	
 func _on_bacteria_division(mother: Bacteria):
+	var child
 	var motherPosition = mother.position
+	
 	print(str("mother position: ", motherPosition))
-	
-	var child_bacteria
-	
+		
 	#instantiate the right bacteria type
 	if mother.is_in_group("F_Bacteria"): 
-	 	child_bacteria = F_Bacteria.instance()
+	 	child = F_Bacteria.instance()
 	elif mother.is_in_group("P_Bacteria"): 
-		child_bacteria = P_Bacteria.instance()
+		child = P_Bacteria.instance()
 	else: 
-		child_bacteria = G_Bacteria.instance()
+		child = G_Bacteria.instance()
 	
 	#choose spawing location for the child	
-	choose_spawn_location(child_bacteria, motherPosition)
+	choose_spawn_location(child, motherPosition)
 	
 	#set attributes for post-partum mother
 	mother.energy_level = mother.INITIAL_ENERGY
@@ -79,14 +79,16 @@ func _on_bacteria_division(mother: Bacteria):
 	mother.state_set(mother.STATE_CHILL)
 	
 	#set attributes for new child 
-	child_bacteria.energy_level = child_bacteria.INITIAL_ENERGY
+	child.energy_level = child.INITIAL_ENERGY
 	#child_bacteria.update_energy_bar(child_bacteria.energy_level)
-	child_bacteria.get_node("EnergyLevel").value = child_bacteria.energy_level
-	child_bacteria.get_node("Energy").text = str(child_bacteria.energy_level)
-	child_bacteria.state_set(mother.STATE_CHILL)
+	child.get_node("EnergyLevel").value = child.energy_level
+	child.get_node("Energy").text = str(child.energy_level)
+	child.state_set(child.STATE_CHILL)
 	
-	add_child(child_bacteria)
+	add_child(child)
 	
+	if input_manager.is_selected(mother):
+		input_manager.push_bacteria(child)	
 	
 
 	
