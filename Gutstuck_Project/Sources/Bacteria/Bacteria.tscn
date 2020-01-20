@@ -1,12 +1,86 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Sources/Bacteria/Bacteria.gd" type="Script" id=1]
 [ext_resource path="res://icon.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Textures/Life_Bar_Under.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Textures/Life_Bar.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Assets/Audios/Sounds/Annoying_Ballon_Sound_1.wav" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Textures/Life_Bar_Under.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Textures/Life_Bar.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Assets/Textures/Dying_Signal.png" type="Texture" id=7]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=6]
+resource_name = "Bacteria_Die"
+length = 0.7
+tracks/0/type = "audio"
+tracks/0/path = NodePath("../AudioStreamPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"clips": [ {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource( 3 )
+} ],
+"times": PoolRealArray( 0 )
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 5, 5 ), Vector2( 8, 8 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath(".:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.6 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("..")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "Bacteria_Die"
+} ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "Bacteria_Low_Energy"
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("../Dying_Signal:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5, 1 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.509804 ) ]
+}
+
+[sub_resource type="Animation" id=7]
 resource_name = "Bacterium_movement"
 length = 0.6
 loop = true
@@ -24,14 +98,14 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="CircleShape2D" id=2]
+[sub_resource type="CircleShape2D" id=8]
 radius = 22.9355
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=9]
 size = 60
-font_data = ExtResource( 5 )
+font_data = ExtResource( 6 )
 
-[sub_resource type="CapsuleShape2D" id=4]
+[sub_resource type="CapsuleShape2D" id=10]
 radius = 30.8291
 height = 0.637798
 
@@ -50,11 +124,13 @@ frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 autoplay = "Bacterium_movement"
-anims/Bacterium_movement = SubResource( 1 )
-"anims/Bacterium_movement 2" = SubResource( 1 )
+anims/Bacteria_Die = SubResource( 6 )
+anims/Bacteria_Low_Energy = SubResource( 5 )
+anims/Bacterium_movement = SubResource( 7 )
+"anims/Bacterium_movement 2" = SubResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 2 )
+shape = SubResource( 8 )
 
 [node name="EnergyLevel" type="TextureProgress" parent="."]
 margin_left = -72.374
@@ -63,21 +139,21 @@ margin_right = 117.626
 margin_bottom = -20.7149
 rect_scale = Vector2( 0.76, 0.52 )
 value = 50.0
-texture_over = ExtResource( 3 )
-texture_progress = ExtResource( 4 )
+texture_over = ExtResource( 4 )
+texture_progress = ExtResource( 5 )
 
 [node name="Energy" type="Label" parent="."]
 margin_left = -44.8283
 margin_top = -142.391
 margin_right = 41.1717
 margin_bottom = -69.3908
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 9 )
 text = "50"
 
 [node name="NutrientInteraction" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NutrientInteraction"]
-shape = SubResource( 4 )
+shape = SubResource( 10 )
 
 [node name="MealTimer" type="Timer" parent="."]
 
@@ -87,6 +163,16 @@ one_shot = true
 
 [node name="EnergyLossTimer" type="Timer" parent="."]
 wait_time = 10.0
+
+[node name="Dying_Signal" type="Sprite" parent="."]
+modulate = Color( 1, 1, 1, 0.509804 )
+self_modulate = Color( 1, 1, 1, 0.509804 )
+scale = Vector2( 5, 5 )
+texture = ExtResource( 7 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
 [connection signal="timeout" from="MealTimer" to="." method="_on_MealTimer_timeout"]
 [connection signal="timeout" from="SaturationTimer" to="." method="_on_SaturationTimer_timeout"]
 [connection signal="timeout" from="EnergyLossTimer" to="." method="_on_EnergyLossTimer_timeout"]

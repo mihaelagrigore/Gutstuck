@@ -37,6 +37,8 @@ var substate = STATE_UNSELECTED setget state_set, state_get
 var state = STATE_CHILL setget state_set, state_get
 var colliding_nutrients = []
 
+var isBacteriaLowEnergy = false
+
 func state_set(value):
 	state = value
 
@@ -54,6 +56,7 @@ func substate_get():
 func _ready():
 	#var inputManager = load("res://Sources/System/Input_Manager.tscn")
 	#connect("die", inputManager, "_on_die" )
+	$Dying_Signal.hide()
 	
 	generation_number+=1
 	$EnergyLossTimer.start()
@@ -85,9 +88,21 @@ func _physics_process(delta):
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if energy_level < 0:
+		energy_level = 0
+
+
 	if energy_level<=0:
-		emit_signal("die", self)
-		queue_free() # Removes the node from the scene and frees it when it becomes safe to do so.
+		$Sprite/AnimationPlayer.play("Bacteria_Die")
+	
+	if energy_level <= 30 && !isBacteriaLowEnergy:
+		isBacteriaLowEnergy = true
+		$Dying_Signal.show()
+		$Sprite/AnimationPlayer.play("Bacteria_Low_Energy")
+	if energy_level > 30 && isBacteriaLowEnergy:
+		isBacteriaLowEnergy = false
+		$Dying_Signal.hide()
+		$Sprite/AnimationPlayer.stop()
 	# Evolution of energy quantity
 	#TODO: implement energy loss as a function of time
 	#I commented the ones below because they led to weird
@@ -156,4 +171,8 @@ func _on_EnergyLossTimer_timeout() -> void:
 		energy_level -= ENERGY_LOS_PER_PERIOD_MOVE
 	$Energy.text = str(energy_level)
 	update_energy_bar(energy_level)
-	
+
+
+func Bacteria_Die():
+	emit_signal("die", self)
+	queue_free() # Removes the node from the scene and frees it when it becomes safe to do so.
