@@ -114,4 +114,6 @@ func _on_ExplosionTimer_timeout() -> void:
 	$Explosion.hide()
 	queue_free()
 	deactivate()
-			
+
+func instanciate_death_chunck_particles():
+	$Particles_Nutrients_Death/AnimationPlayer.play("Particles")

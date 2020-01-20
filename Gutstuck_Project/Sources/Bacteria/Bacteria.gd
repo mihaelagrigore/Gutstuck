@@ -2,7 +2,7 @@ extends KinematicBody2D
 class_name Bacteria
 
 const INITIAL_ENERGY=50
-const ENERGY_LOS_PER_PERIOD_CHILL = 20 #1
+const ENERGY_LOS_PER_PERIOD_CHILL = 10 #1
 const ENERGY_LOS_PER_PERIOD_MOVE = 20
 const MAX_ENERGY=100
 
