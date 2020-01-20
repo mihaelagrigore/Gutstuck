@@ -19,7 +19,11 @@ var state = STATE_CHILL setget state_set, state_get
 #when reaches 0 -> depleted -> time to break into pieces
 var energy = INITIAL_ENERGY setget energy_set, energy_get
 
-var colliding_bacteria = [] 
+var colliding_bacteria = []
+
+onready var audio_player = get_node("AudioStreamPlayer")
+var finish_being_eaten_sound = load("res://Assets/Audios/Sounds/reward_sound.wav")
+
 
 func update_energy_bar(value: int):
 	Energy_Level_Bar.value=value
@@ -53,7 +57,8 @@ func _process(delta):
 		print("draw explosion")
 		state = STATE_EXPLODING
 		$Explosion.show()
-		$ExplosionTimer.start()
+		#$ExplosionTimer.start()
+		$AnimationPlayer.play("Explosion")
 
 # Bacteria feeding on me will call this function
 # Bacteria tries to bite an amount of energy = bite_size

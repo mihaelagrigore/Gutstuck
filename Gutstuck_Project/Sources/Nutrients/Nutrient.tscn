@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Sources/Nutrients/Nutrient.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Textures/Life_Bar_Under.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Textures/Life_Bar.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Assets/Audios/Sounds/explosion.wav" type="AudioStream" id=5]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 14.9336
+radius = 24.9958
 height = 2.78351
 
 [sub_resource type="DynamicFont" id=2]
@@ -14,7 +15,7 @@ size = 15
 font_data = ExtResource( 4 )
 
 [sub_resource type="CapsuleShape2D" id=3]
-radius = 22.2301
+radius = 36.2296
 height = 2.08269
 
 [sub_resource type="ParticlesMaterial" id=4]
@@ -25,6 +26,80 @@ gravity = Vector3( 0, 98, 0 )
 angular_velocity = -0.02
 orbit_velocity = -1000.0
 orbit_velocity_random = 0.0
+
+[sub_resource type="Animation" id=5]
+resource_name = "Explosion"
+length = 2.11
+tracks/0/type = "value"
+tracks/0/path = NodePath("AudioStreamPlayerExplosion:playing")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Sprite:scale:x")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 2.94268, -0.25, 0, 0.25, 0, 1.00895, -0.25, 0, 0.25, 0, 1.02562, -0.25, 0, 0.25, 0, 3.01543, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.26, 0.5, 1.2, 1.5 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("Sprite:scale:y")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1.01565, -0.25, 0, 0.25, 0, 2.9937, -0.25, 0, 0.25, 0, 1.03739, -0.25, 0, 0.25, 0, 1.03516, -0.25, 0, 0.25, 0, 3.01811, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.51, 0.79, 0.98, 1.2, 1.5 )
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Sprite:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 1.1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/4/type = "method"
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"times": PoolRealArray( 2.1 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "_on_ExplosionTimer_timeout"
+} ]
+}
+tracks/5/type = "value"
+tracks/5/path = NodePath("Explosion:visible")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="Nutrient" type="KinematicBody2D" groups=[
 "Nutrient",
@@ -67,6 +142,16 @@ process_material = SubResource( 4 )
 [node name="ExplosionTimer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="AudioStreamPlayerExplosion" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+volume_db = 14.222
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Explosion = SubResource( 5 )
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="body_entered" from="BacteriaInteraction" to="." method="_on_BacteriaInteraction_body_entered"]
 [connection signal="body_exited" from="BacteriaInteraction" to="." method="_on_BacteriaInteraction_body_exited"]
 [connection signal="timeout" from="ExplosionTimer" to="." method="_on_ExplosionTimer_timeout"]
