@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gutstuck_soundtrack_third.wav-1c6870022eef7fe4cc8d6695aa5ad627.sample"
+
+[deps]
+
+source_file="res://Assets/Audios/Musics/gutstuck_soundtrack_third.wav"
+dest_files=[ "res://.import/gutstuck_soundtrack_third.wav-1c6870022eef7fe4cc8d6695aa5ad627.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

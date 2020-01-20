@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/gutstuck_sample_0.1_-_darkmode (1).wav-169727b5c599c2f72a3394ce1f0abac5.sample"
+
+[deps]
+
+source_file="res://Assets/Audios/Musics/gutstuck_sample_0.1_-_darkmode (1).wav"
+dest_files=[ "res://.import/gutstuck_sample_0.1_-_darkmode (1).wav-169727b5c599c2f72a3394ce1f0abac5.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0
