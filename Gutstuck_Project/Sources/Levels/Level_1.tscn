@@ -33,15 +33,10 @@ loop = true
 [node name="Level_1" type="Node2D"]
 script = ExtResource( 1 )
 
-<<<<<<< HEAD
 [node name="Game_Manager" parent="." instance=ExtResource( 2 )]
 
 [node name="Menu" parent="Game_Manager" instance=ExtResource( 3 )]
 margin_left = 60.231
-=======
-[node name="Menu" parent="." instance=ExtResource( 2 )]
-margin_left = -0.189655
->>>>>>> 613d9e4880a9c11e38a1068a82fce6fe8883927f
 margin_top = -691.614
 margin_right = -0.189655
 margin_bottom = -691.614
