@@ -5,7 +5,7 @@ extends Node
 # var b = "text"
 
 onready var camera = get_node("Camera2D")
-onready var animationplayer = get_tree().get_root().get_node("Level_1/AnimationPlayer")
+var firstTimePlayButtonPressed = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -15,6 +15,8 @@ func _ready():
 	get_node("Manager_Nutrients").Spawn_Nutrient = get_node("Spawn_Nutrient")
 	get_node("Input_Manager").Bacteria_Manager_Reference = get_node("Bacteria_Manager")
 	get_node("Manager_Nutrients").Spawn_Bacteria = get_node("Spawn_Location_Container")
+	get_node("Menu").game_manager = self
+	get_node("Menu").personal_init()
 	get_node("Bacteria_Manager").personal_init()
 	get_node("Manager_Nutrients").personal_init()
 
@@ -26,6 +28,23 @@ func _ready():
 
 func _on_Pause_Button_pressed():
 	start_pause_mode()
+	camera_to_top()
+
+func camera_to_bottom():
+	$AnimationPlayer.play("Camera_to_bottom")
+	get_node("Menu/Popup").hide_all_children()
+
+func camera_to_top():
+	$AnimationPlayer.play("Camera_to_top")
+
+func exit_pause_mode():
+	get_tree().paused = false
 
 func start_pause_mode():
-	pass
+	get_tree().paused = true
+
+func intro_explanation_hide():
+	if !firstTimePlayButtonPressed && has_node("Menu/Real_Intro_Explanation"):
+		get_node("Menu/Real_Intro_Explanation").hide()
+		get_node("Menu/ScrollContainer").show()
+		firstTimePlayButtonPressed = true

@@ -38,6 +38,7 @@ var state = STATE_CHILL setget state_set, state_get
 var colliding_nutrients = []
 
 var isBacteriaLowEnergy = false
+var isBacteriaDead = false
 
 func state_set(value):
 	state = value
@@ -92,8 +93,10 @@ func _process(delta):
 		energy_level = 0
 
 
-	if energy_level<=0:
+	if energy_level<=0 && !isBacteriaDead:
+		print("BACTERIA DIE")
 		$Sprite/AnimationPlayer.play("Bacteria_Die")
+		isBacteriaDead = true
 	
 	if energy_level <= 30 && !isBacteriaLowEnergy:
 		isBacteriaLowEnergy = true

@@ -8,7 +8,7 @@
 [ext_resource path="res://Assets/Fonts/Xolonium-Regular.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Assets/Textures/Dying_Signal.png" type="Texture" id=7]
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=1]
 resource_name = "Bacteria_Die"
 length = 0.7
 tracks/0/type = "audio"
@@ -32,10 +32,10 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.6 ),
-"transitions": PoolRealArray( 1, 1 ),
+"times": PoolRealArray( 0, 0.6, 0.601 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 5, 5 ), Vector2( 8, 8 ) ]
+"values": [ Vector2( 5, 5 ), Vector2( 20, 20 ), Vector2( 20, 20 ) ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath(".:modulate")
@@ -44,7 +44,7 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.6 ),
+"times": PoolRealArray( 0, 0.7 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
@@ -64,7 +64,7 @@ tracks/3/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 resource_name = "Bacteria_Low_Energy"
 loop = true
 tracks/0/type = "value"
@@ -80,7 +80,7 @@ tracks/0/keys = {
 "values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0.509804 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=3]
 resource_name = "Bacterium_movement"
 length = 0.6
 loop = true
@@ -98,14 +98,14 @@ tracks/0/keys = {
 "values": [ 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="CircleShape2D" id=8]
+[sub_resource type="CircleShape2D" id=4]
 radius = 22.9355
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=5]
 size = 60
 font_data = ExtResource( 6 )
 
-[sub_resource type="CapsuleShape2D" id=10]
+[sub_resource type="CapsuleShape2D" id=6]
 radius = 30.8291
 height = 0.637798
 
@@ -124,13 +124,13 @@ frame = 6
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite"]
 autoplay = "Bacterium_movement"
-anims/Bacteria_Die = SubResource( 6 )
-anims/Bacteria_Low_Energy = SubResource( 5 )
-anims/Bacterium_movement = SubResource( 7 )
-"anims/Bacterium_movement 2" = SubResource( 7 )
+anims/Bacteria_Die = SubResource( 1 )
+anims/Bacteria_Low_Energy = SubResource( 2 )
+anims/Bacterium_movement = SubResource( 3 )
+"anims/Bacterium_movement 2" = SubResource( 3 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 8 )
+shape = SubResource( 4 )
 
 [node name="EnergyLevel" type="TextureProgress" parent="."]
 margin_left = -72.374
@@ -147,13 +147,13 @@ margin_left = -44.8283
 margin_top = -142.391
 margin_right = 41.1717
 margin_bottom = -69.3908
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 5 )
 text = "50"
 
 [node name="NutrientInteraction" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NutrientInteraction"]
-shape = SubResource( 10 )
+shape = SubResource( 6 )
 
 [node name="MealTimer" type="Timer" parent="."]
 
@@ -172,6 +172,7 @@ texture = ExtResource( 7 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 3 )
+volume_db = -16.889
 
 [connection signal="timeout" from="MealTimer" to="." method="_on_MealTimer_timeout"]
 [connection signal="timeout" from="SaturationTimer" to="." method="_on_SaturationTimer_timeout"]

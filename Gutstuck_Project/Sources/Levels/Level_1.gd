@@ -6,20 +6,21 @@ extends Node2D
 onready var text_introduction = get_node("Game_Manager/Text_introduction")
 
 # Called when the node enters the scene tree for the first time.
-func _enter_tree():
-	get_tree().paused = true
+#func _enter_tree():
+#
 
 func _ready():
-	toogle_first_explanation()
+	get_tree().paused = true
+	#toogle_first_explanation()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
-func _on_Button_pressed():
-	print()
-	get_tree().paused = false
-	toogle_first_explanation()
+#func _on_Button_pressed():
+#	print()
+#	get_tree().paused = false
+#	toogle_first_explanation()
 
 
 func toogle_first_explanation():

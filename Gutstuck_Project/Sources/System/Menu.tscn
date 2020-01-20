@@ -1,13 +1,17 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Sources/System/Menu.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Textures/Asset_scenery.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Fonts/Xolonium.tres" type="DynamicFont" id=3]
-[ext_resource path="res://Assets/Textures/Asset_learningInterface.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Textures/Asset_title_gutstuck.png" type="Texture" id=5]
-[ext_resource path="res://Assets/Textures/Asset_button_info.png" type="Texture" id=6]
-[ext_resource path="res://Assets/Textures/Asset_button_play.png" type="Texture" id=7]
-[ext_resource path="res://Assets/Textures/Asset_button_settings.png" type="Texture" id=8]
+[ext_resource path="res://Sources/System/Main_Learning_Container.gd" type="Script" id=4]
+[ext_resource path="res://Sources/System/Learning_Menu.gd" type="Script" id=5]
+[ext_resource path="res://Assets/Fonts/XoloniumMini.tres" type="DynamicFont" id=6]
+[ext_resource path="res://Assets/Textures/Asset_learningInterface.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Textures/Asset_IntroTextBubble.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Textures/Asset_title_gutstuck.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Textures/Asset_button_info.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Textures/Asset_button_play.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Textures/Asset_button_settings.png" type="Texture" id=12]
 
 [node name="Menu" type="Control"]
 pause_mode = 2
@@ -20,96 +24,249 @@ position = Vector2( -66.9657, -12.7554 )
 texture = ExtResource( 2 )
 
 [node name="ScrollContainer" type="ScrollContainer" parent="."]
+visible = false
 margin_left = -585.539
 margin_top = -857.383
 margin_right = -362.209
 margin_bottom = -657.383
 
 [node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
-margin_right = 211.0
+margin_right = 191.0
 margin_bottom = 283.0
 custom_constants/separation = 5
 
-[node name="MenuButton" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
-margin_right = 211.0
-margin_bottom = 31.0
+[node name="Microbiota" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
+margin_right = 191.0
+margin_bottom = 27.0
 custom_fonts/font = ExtResource( 3 )
-text = "Differential feeding"
+text = "Microbiota"
 
-[node name="PopupMenu2" type="PopupMenu" parent="ScrollContainer/VBoxContainer/MenuButton"]
-margin_right = 20.0
-margin_bottom = 20.0
-
-[node name="Label" type="Label" parent="ScrollContainer/VBoxContainer/MenuButton/PopupMenu2"]
-margin_right = 40.0
-margin_bottom = 14.0
-text = "sasajsjsajaksaksakakfkekeka
-salalsalaslalslalzfkzk
-aldlakdakakdka"
-
-[node name="MenuButton2" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
-margin_top = 36.0
-margin_right = 211.0
-margin_bottom = 67.0
+[node name="Bacteria" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
+margin_top = 32.0
+margin_right = 191.0
+margin_bottom = 59.0
 custom_fonts/font = ExtResource( 3 )
-text = "Maintenance"
+text = "Bacteria"
 
-[node name="MenuButton3" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
-margin_top = 72.0
-margin_right = 211.0
-margin_bottom = 103.0
+[node name="Cell" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
+margin_top = 64.0
+margin_right = 191.0
+margin_bottom = 91.0
 custom_fonts/font = ExtResource( 3 )
-text = "Defence"
+text = "Cell"
 
-[node name="MenuButton4" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
-margin_top = 108.0
-margin_right = 211.0
-margin_bottom = 139.0
+[node name="Gut lining" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
+margin_top = 96.0
+margin_right = 191.0
+margin_bottom = 123.0
 custom_fonts/font = ExtResource( 3 )
-text = "Dynamics"
+text = "Gut lining"
 
-[node name="MenuButton5" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
-margin_top = 144.0
-margin_right = 211.0
-margin_bottom = 175.0
+[node name="Digestion" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
+margin_top = 128.0
+margin_right = 191.0
+margin_bottom = 155.0
 custom_fonts/font = ExtResource( 3 )
-text = "Maintenance"
+text = "Digestion"
 
-[node name="MenuButton6" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
-margin_top = 180.0
-margin_right = 211.0
-margin_bottom = 211.0
+[node name="Selective_feeding" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
+margin_top = 160.0
+margin_right = 191.0
+margin_bottom = 187.0
 custom_fonts/font = ExtResource( 3 )
-text = "Dynamics"
+text = "Selective feeding"
 
-[node name="MenuButton7" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
-margin_top = 216.0
-margin_right = 211.0
-margin_bottom = 247.0
+[node name="Nutrients_absorption" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
+margin_top = 192.0
+margin_right = 191.0
+margin_bottom = 219.0
 custom_fonts/font = ExtResource( 3 )
-text = "Differential feeding"
+text = "Nutrients absorption"
 
-[node name="MenuButton8" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
-margin_top = 252.0
-margin_right = 211.0
+[node name="Mucus" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
+margin_top = 224.0
+margin_right = 191.0
+margin_bottom = 251.0
+custom_fonts/font = ExtResource( 3 )
+text = "Mucus"
+
+[node name="Dysbiosis" type="MenuButton" parent="ScrollContainer/VBoxContainer"]
+margin_top = 256.0
+margin_right = 191.0
 margin_bottom = 283.0
 custom_fonts/font = ExtResource( 3 )
-text = "Defence"
+text = "Dysbiosis"
+
+[node name="Popup" type="Control" parent="."]
+margin_left = -33.4241
+margin_top = -886.92
+margin_right = -33.4241
+margin_bottom = -886.92
+script = ExtResource( 4 )
+
+[node name="Microbiota" type="ColorRect" parent="Popup"]
+visible = false
+margin_right = 500.0
+margin_bottom = 200.0
+color = Color( 0.141176, 0.141176, 0.141176, 1 )
+script = ExtResource( 5 )
+
+[node name="Label" type="RichTextLabel" parent="Popup/Microbiota"]
+margin_left = 49.6987
+margin_top = 17.0041
+margin_right = 449.699
+margin_bottom = 1289.0
+custom_fonts/normal_font = ExtResource( 6 )
+bbcode_enabled = true
+bbcode_text = "The microbiota are the microbes (bacteria, fungi, viruses) that live in or on the human body, such as on the skin or in the mouth, vagina, eyes and especially in the gut. In the stomack, there is  10 to 1000 bacterias per drop of water; in the small intestine, there is 10 000 to 10 milllions bacterias per drop of water; in the colon, there is 10 billions to 10 000 billions per drop of water. In total, a human has more bacteria than human cells! 
+[url=\"https://kids.frontiersin.org/article/10.3389/frym.2017.00035\"]Learn more[/url]"
+text = "The microbiota are the microbes (bacteria, fungi, viruses) that live in or on the human body, such as on the skin or in the mouth, vagina, eyes and especially in the gut. In the stomack, there is  10 to 1000 bacterias per drop of water; in the small intestine, there is 10 000 to 10 milllions bacterias per drop of water; in the colon, there is 10 billions to 10 000 billions per drop of water. In total, a human has more bacteria than human cells! 
+Learn more"
+
+[node name="Bacteria" type="ColorRect" parent="Popup"]
+visible = false
+margin_right = 500.0
+margin_bottom = 200.0
+color = Color( 0.141176, 0.141176, 0.141176, 1 )
+script = ExtResource( 5 )
+
+[node name="Label" type="RichTextLabel" parent="Popup/Bacteria"]
+margin_left = 49.6987
+margin_top = 17.0041
+margin_right = 449.699
+margin_bottom = 1289.0
+custom_fonts/normal_font = ExtResource( 6 )
+text = "Bacteria are microbes that consist of only one cell. They are too small to be seen by the naked eye and they can be found in all natural environments. If some bacteria can cause diseases, many species of the gut microbiota are believed to leave in symbiosis with their host. It means that host and occupant are mutually beneficial for each other. While the host provides a home and food for the bacteria, they perform essential functions for its health."
+
+[node name="Cell" type="ColorRect" parent="Popup"]
+visible = false
+margin_right = 500.0
+margin_bottom = 200.0
+color = Color( 0.141176, 0.141176, 0.141176, 1 )
+script = ExtResource( 5 )
+
+[node name="Label" type="RichTextLabel" parent="Popup/Cell"]
+margin_left = 49.6987
+margin_top = 17.0041
+margin_right = 449.699
+margin_bottom = 1289.0
+custom_fonts/normal_font = ExtResource( 6 )
+text = "All living things are made up of building blocks called cells. Cells are the fundamental, structural, and functional units of life. Large plants and animals have many billions of cells. Not all cells of the body are the same. Cells that make up the skin are different from the cells in the eye, for example, in their size, shape, the way they are connected to each other, and the way they communicate with other cells. There are about 200 different cell types in the human body! And every cell type is designed to perform specific functions.
+"
+
+[node name="Gut_lining" type="ColorRect" parent="Popup"]
+visible = false
+margin_right = 500.0
+margin_bottom = 200.0
+color = Color( 0.141176, 0.141176, 0.141176, 1 )
+script = ExtResource( 5 )
+
+[node name="Label" type="RichTextLabel" parent="Popup/Gut_lining"]
+margin_left = 49.6987
+margin_top = 17.0041
+margin_right = 449.699
+margin_bottom = 1289.0
+custom_fonts/normal_font = ExtResource( 6 )
+text = "The lining of the gut is made up of cells called epithelial cells. Epithelial cells function as a boundary, protecting the surfaces it covers. They are the first cell types to come into contact with the signals and objects from the outside world. In the case of the gut, those external signals include for instance the food that you eat."
+
+[node name="Digestion" type="ColorRect" parent="Popup"]
+visible = false
+margin_right = 500.0
+margin_bottom = 200.0
+color = Color( 0.141176, 0.141176, 0.141176, 1 )
+script = ExtResource( 5 )
+
+[node name="Label" type="RichTextLabel" parent="Popup/Digestion"]
+margin_left = 49.6987
+margin_top = 17.0041
+margin_right = 449.699
+margin_bottom = 1289.0
+custom_fonts/normal_font = ExtResource( 6 )
+text = "The food you eat needs to be further broken down into building blocks and fuel so your body can actually use it. This is called digestion. You start to break down food in your mouth by chewing it. Then the stomack, full of acid, takes over. The microbiota also plays a direct role in digestion by degrading the food that cannot be well broken down by the body alone."
+
+[node name="Selective_feeding" type="ColorRect" parent="Popup"]
+visible = false
+margin_right = 500.0
+margin_bottom = 200.0
+color = Color( 0.141176, 0.141176, 0.141176, 1 )
+script = ExtResource( 5 )
+
+[node name="Label" type="RichTextLabel" parent="Popup/Selective_feeding"]
+margin_left = 49.6987
+margin_top = 17.0041
+margin_right = 449.699
+margin_bottom = 1289.0
+custom_fonts/normal_font = ExtResource( 6 )
+text = "Diet can greatly shape the composition of the gut microbiota. For instance some species of bacteria feed on plant fibres only and others on animal proteins only. This is called selective feeding, and these species are refered as specialists as opposed to generalists that could feed on both. Thus extreme ‘plant-based’ or ‘animal-based’ diets can result in microbiota having very different populations of bacteria."
+
+[node name="Nutrients_absorption" type="ColorRect" parent="Popup"]
+visible = false
+margin_right = 500.0
+margin_bottom = 400.0
+color = Color( 0.141176, 0.141176, 0.141176, 1 )
+script = ExtResource( 5 )
+
+[node name="Label" type="RichTextLabel" parent="Popup/Nutrients_absorption"]
+margin_left = 49.6987
+margin_top = 17.0041
+margin_right = 449.699
+margin_bottom = 1289.0
+custom_fonts/normal_font = ExtResource( 6 )
+text = "Nutrients are chemical substances that are necessary for life. They are used in every processes of an organism’s body. Some of the processes are growth (building cells), repair (healing a wound), and maintaining life (breathing). 
+ 
+Some essential nutrients are not synthetized by the body. Macronutrients, including carbohydrates, protein, and fats, are the main components of foods and provide energy for us to move and function. Micronutrients, like vitamins and minerals, such as vitamin C, calcium and iron, are elements that our bodies need in small amounts for healthy growth and development. If the body does not get enough nutrients, we could get sick and develop diseases. They can be obtained from food via digestion. After food is broken down into pieces, nutrients absorption by cells can happen at the gut lining and finally be used by the whole body. 
+ 
+ By helping the process of digestion, the gut microbiota is simultaneously harvesting energy and delivering nutrients for the benefit of the host health."
+
+[node name="Mucus" type="ColorRect" parent="Popup"]
+visible = false
+margin_right = 500.0
+margin_bottom = 200.0
+color = Color( 0.141176, 0.141176, 0.141176, 1 )
+script = ExtResource( 5 )
+
+[node name="Label" type="RichTextLabel" parent="Popup/Mucus"]
+margin_left = 49.6987
+margin_top = 17.0041
+margin_right = 449.699
+margin_bottom = 1289.0
+custom_fonts/normal_font = ExtResource( 6 )
+text = "The gut lining produces and is covered with a thick liquid called mucus. The mucus acts as a defense barrier against pathogens and prevents bacteria from entering the body. Certain species of bacteria can stimulate the production of mucus by interacting with the cells of the gut lining. Other species can feed on mucus. At first it may strengthen the defense barrier locally, but it could also lead to mucus depletion and ultimately inflammation which would be detrimental for the host health.
+"
+
+[node name="Dysbiosis" type="ColorRect" parent="Popup"]
+visible = false
+margin_right = 500.0
+margin_bottom = 200.0
+color = Color( 0.141176, 0.141176, 0.141176, 1 )
+script = ExtResource( 5 )
+
+[node name="Label" type="RichTextLabel" parent="Popup/Dysbiosis"]
+margin_left = 49.6987
+margin_top = 17.0041
+margin_right = 449.699
+margin_bottom = 1289.0
+custom_fonts/normal_font = ExtResource( 6 )
+text = "Dysbiosis refers to an imbalance in the compositon of the gut microbiota populations that could disrupt the symbiotic relationship with their host, a disruption that can result in diseases, such as inflammatory bowel disease, cancer, diabetes, obesity or mental illnesses."
 
 [node name="Learning_Interface" type="Sprite" parent="."]
 position = Vector2( -460.805, -784.663 )
-texture = ExtResource( 4 )
+texture = ExtResource( 7 )
+
+[node name="Real_Intro_Explanation" type="Sprite" parent="."]
+position = Vector2( -461.924, -780.139 )
+texture = ExtResource( 8 )
 
 [node name="Title" type="Sprite" parent="."]
 position = Vector2( -505.219, -991.933 )
-texture = ExtResource( 5 )
+texture = ExtResource( 9 )
 
 [node name="Info_Button" type="Button" parent="."]
 margin_left = -265.426
 margin_top = -512.612
 margin_right = -158.426
 margin_bottom = -414.612
-icon = ExtResource( 6 )
+icon = ExtResource( 10 )
 flat = true
 
 [node name="Play_Button" type="Button" parent="."]
@@ -117,7 +274,7 @@ margin_left = -684.958
 margin_top = -627.278
 margin_right = -506.958
 margin_bottom = -456.278
-icon = ExtResource( 7 )
+icon = ExtResource( 11 )
 flat = true
 
 [node name="Settings_Button" type="Button" parent="."]
@@ -125,5 +282,16 @@ margin_left = -348.342
 margin_top = -577.503
 margin_right = -224.342
 margin_bottom = -457.503
-icon = ExtResource( 8 )
+icon = ExtResource( 12 )
 flat = true
+
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Microbiota" to="Popup/Microbiota" method="show_me"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Bacteria" to="Popup/Bacteria" method="show_me"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Cell" to="Popup/Cell" method="show_me"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Gut lining" to="Popup/Gut_lining" method="show_me"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Digestion" to="Popup/Digestion" method="show_me"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Selective_feeding" to="Popup/Selective_feeding" method="show_me"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Nutrients_absorption" to="Popup/Nutrients_absorption" method="show_me"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Mucus" to="Popup/Mucus" method="show_me"]
+[connection signal="pressed" from="ScrollContainer/VBoxContainer/Dysbiosis" to="Popup/Dysbiosis" method="show_me"]
+[connection signal="pressed" from="Play_Button" to="." method="_on_Play_Button_pressed"]
