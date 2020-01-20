@@ -1,0 +1,13 @@
+diff a/Gutstuck_Project/Sources/Levels/Level_1.tscn b/Gutstuck_Project/Sources/Levels/Level_1.tscn	(rejected hunks)
+@@ -35,9 +35,9 @@
+ script = ExtResource( 1 )
+ 
+ [node name="Menu" parent="." instance=ExtResource( 2 )]
+-margin_left = 60.231
++margin_left = -0.189655
+ margin_top = -691.614
+-margin_right = 60.231
++margin_right = -0.189655
+ margin_bottom = -691.614
+ 
+ [node name="Background" type="Sprite" parent="."]
