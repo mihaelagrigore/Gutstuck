@@ -27,6 +27,10 @@ var selectableObjects = []
 var selectedObjects = []
 
 
+onready var audio_player = get_node("AudioStreamPlayer")
+var select_sound = load("res://Assets/Audios/Sounds/bulle.wav")
+var bacteria_select_timer
+
 func _ready():
 	#queue_free()
 	if cameraPath != null:
@@ -36,6 +40,7 @@ func _ready():
 	set_process_input(true)
 	add_child(colorRect)
 	colorRect.color = box_color
+	bacteria_select_timer = get_tree().create_timer(0.0)
 
 
 func _process(delta): # problem of "input fired twice" solve thanks to https://github.com/godotengine/godot/issues/24944
@@ -88,11 +93,17 @@ func SelectObjects():
 			if(selfRect.has_point(bacteria.position)):
 				temp_bacterias_selected.push_back(bacteria)
 		if !temp_bacterias_selected.empty():
+#			var temp_count = 0.0
+			play_sound("select")
 			for bacteria in temp_bacterias_selected:
 				#bacteria.connect("die", self, "_on_die")
 				bacteria.substate_set(bacteria.STATE_SELECTED)
 				bacterias.push_back(bacteria)
-				
+#				bacteria_select_timer = get_tree().create_timer(temp_count/10)
+#				yield(bacteria_select_timer, "timeout")
+#				temp_count += 1.0
+
+
 func DeselectObjects():
 	print(str(bacterias.size(), " bacteria"))
 	for bacteria in bacterias:
@@ -114,3 +125,9 @@ func _on_die(victim):
 		bacterias.erase(victim)
 	else: 
 		print("Dead body NOT selected")
+
+
+func play_sound(sound):
+	if(sound == "select"):
+		audio_player.stream = select_sound
+		audio_player.play()
